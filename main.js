@@ -1,6 +1,10 @@
+
 $(document).ready(function () {
 
     jQuery(function ($) {
+      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js", function() {
+         // alert("Script loaded but not necessarily executed.");
+
         $.ajax({
             type: "GET",
             url: "http://backend.api.com/vitrine/get",
@@ -27,11 +31,21 @@ $(document).ready(function () {
                     '    <!-- Add Pagination -->\n' +
                     '    <div class="swiper-pagination"></div>\n' +
                     '  </div>');
+                    var swiper = new Swiper('.swiper-container', {
+                      slidesPerView: 4,
+                      spaceBetween: 30,
+                      centeredSlides: true,
+                      pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                      },
+                    });
             },
             error: function () {
 
             }
         });
-    });
 
+    });
+  });
 });
