@@ -13,7 +13,7 @@ $(document).ready(function () {
             },
 
             success: function (data) {
-                // data = JSON.parse(data);
+
 
                 $('#vitrine').append('<div class="swiper-container">\n' +
                     '    <div class="swiper-wrapper">\n' +
