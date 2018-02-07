@@ -4,7 +4,10 @@ $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "http://backend.api.com/vitrine/get",
-            data: {'Content-Type' : 'application/json', 'Authorization-Token' : 'testtoken' },
+            headers: {
+                'Content-Type' : 'application/json', 'Authorization-Token' : 'testtoken'
+            },
+            
             success: function (data) {
                 data = JSON.parse(data);
 
@@ -31,4 +34,4 @@ $(document).ready(function () {
         });
     });
 
-}
+});
