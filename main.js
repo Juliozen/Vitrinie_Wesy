@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "http://backend.api.com/vitrine/get",
-        data: arr,
+        data: {'Content-Type' : 'application/json', 'Authorization-Token' : 'testtoken' },
         success: function (data) {
             data = JSON.parse(data);
 
