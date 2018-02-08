@@ -63,7 +63,7 @@ $(document).ready(function () {
                                 slides: (function () {
                                     var slides = [];
                                     for (var i = 0; i < 3; i++) {
-                                        slides.push('<p class="text">Slide ' + (i + 1) + '</p>');
+                                        slides.push('<p class="text">' +  vitrine.labels[0].attrName + '</p>');
                                     }
                                     return slides;
                                 }())
