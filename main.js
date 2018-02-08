@@ -2,12 +2,7 @@
 $(document).ready(function () {
 
     jQuery(function ($) {
-      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
-      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js",
-      $.getScript("https://rawgit.com/Juliozen/Vitrinie_Wesy/master/main.js"),
-      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css"),
-      $.getScript("https://rawgit.com/Juliozen/Vitrinie_Wesy/master/vitrine.css"),
-      function() {
+      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js", function() {
          // alert("Script loaded but not necessarily executed.");
 
         $.ajax({
