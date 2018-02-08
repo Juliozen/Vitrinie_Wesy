@@ -2,7 +2,8 @@
 $(document).ready(function () {
 
     jQuery(function ($) {
-      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js", function() {
+      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js",
+      function() {
          // alert("Script loaded but not necessarily executed.");
 
         $.ajax({
