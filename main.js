@@ -30,10 +30,10 @@ $(document).ready(function () {
 
 
                         var pagination = vitrine.passIndicator[0].not === 0 ?
-                            vitrine.passIndicator[0].line === 0 ? '.swiper-pagination' : null : null;
+                            vitrine.passIndicator[0].line === 0 ? '.swiper-pagination' : '' : '';
 
                         var scrollbar = vitrine.passIndicator[0].not === 0 ?
-                            vitrine.passIndicator[0].line === 1 ? '.swiper-scrollbar' : null : null;
+                            vitrine.passIndicator[0].line === 1 ? '.swiper-scrollbar' : '' : '';
 
                         var autoplay = vitrine.autoLoop === 1 ? {
                             delay: 1000,
@@ -56,8 +56,8 @@ $(document).ready(function () {
                                 hide: false
                             },
                             navigation: {
-                                nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : null,
-                                prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : null
+                                nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
+                                prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
                             },
                             virtual: {
                                 slides: (function () {
