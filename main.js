@@ -20,7 +20,7 @@ $(document).ready(function () {
 
 
                         $('#vitrine').append('<div class="swiper-container">' +
-                            '    <div id="teste" class="swiper-wrapper"></div>' +
+                            '    <div class="swiper-wrapper"></div>' +
 
                             '    <div class="swiper-button-next"></div>\n' +
                             '    <div class="swiper-button-prev"></div>\n' +
@@ -28,9 +28,6 @@ $(document).ready(function () {
                             '    <div class="swiper-scrollbar"></div>\n' +
                             '  </div>');
 
-                        $("#teste").css({"font-size": vitrine.labels[0].fontSize,
-                            'color': vitrine.labels[0].fontColor,
-                            "font-family" : vitrine.fontFamily });
 
                         var pagination = vitrine.passIndicator[0].not === 0 ?
                             vitrine.passIndicator[0].line === 0 ? '.swiper-pagination' : null : null;
@@ -66,11 +63,19 @@ $(document).ready(function () {
                                 slides: (function () {
                                     var slides = [];
                                     for (var i = 0; i < 3; i++) {
-                                        slides.push('Slide ' + (i + 1));
+                                        slides.push('<p class="text">Slide ' + (i + 1) + '</p>');
                                     }
                                     return slides;
                                 }())
                             }
+                        });
+
+                        $(".text").css({
+                            "padding-top" : vitrine.labels[0].bottom === 1 ? '35%' : '0%',
+                            "padding-bottom" : vitrine.labels[0].top === 1 ? '35%' : '0%',
+                            "font-size": vitrine.labels[0].fontSize,
+                            'color': vitrine.labels[0].fontColor,
+                            "font-family": vitrine.fontFamily
                         });
                     },
                     error: function () {
