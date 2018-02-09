@@ -1,23 +1,125 @@
-$(document).ready(function () {
+var token;
 
-    jQuery(function ($) {
-        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js",
-            function () {
-                // alert("Script loaded but not necessarily executed.");
+function Vitrine(usuario, senha) {
 
-                $.ajax({
-                    type: "GET",
-                    url: "http://backend.api.com/vitrine/get",
-                    headers: {
-                        'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
-                    },
+    console.log("USUARIO:" + usuario + " SENHA: " + senha);
 
-                    success: function (data) {
+    $.ajax({
+        type: "POST",
+        url: "http://backend.api.com/oauth/autenticate",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+            "email": usuario.toString(),
+            "password": senha.toString()
+        }),
+        success: data => {
 
-                        console.log(data.resposta);
+            token = data.resposta.access_token;
 
-                        var vitrine = data.resposta;
+            init();
 
+        },
+        error: () => {
+
+        }
+    });
+
+
+
+}
+
+function onClickButton(varFunction){
+    $('#button').onclick(varFunction);
+}
+
+
+function init() {
+    $.getScript("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js",
+        function () {
+            // alert("Script loaded but not necessarily executed.");
+
+            $.ajax({
+                type: "GET",
+                url: "http://backend.api.com/vitrine/get",
+                headers: {
+                    'Content-Type': 'application/json', 'Authorization-Token': token
+                },
+
+                success: function (data) {
+
+                    console.log("RESPOSTA DO SERV");
+                    console.log(data.resposta);
+
+                    var vitrine = data.resposta;
+
+                    let vitrinePrefs = {};
+
+                    if (vitrine) {
+
+                        $('#vitrine').append('<div id="swiperID" class="swiper-container">' +
+                            '    <div class="swiper-wrapper"></div>' +
+                            '  </div>');
+
+
+
+                        vitrinePrefs.centeredSlides = true;
+                        vitrinePrefs.loop = false;
+
+                        var pagination = vitrine.passIndicator[0].not === 0 ?
+                            vitrine.passIndicator[0].line === 0 ? {
+                                el: '.swiper-pagination',
+                                clickable: true
+                            } : '' : '';
+
+                        if (pagination !== '') {
+                            vitrinePrefs.pagination = pagination;
+                            $('#swiperID').append('<div class="swiper-pagination"></div>');
+                        }
+
+                        var scrollbar = vitrine.passIndicator[0].not === 0 ?
+                            vitrine.passIndicator[0].line === 1 ? {
+                                el: '.swiper-scrollbar',
+                                hide: false
+                            } : '' : '';
+
+
+                        if (scrollbar !== '') {
+                            vitrinePrefs.scrollbar = scrollbar;
+                            $('#swiperID').append('<div class="swiper-scrollbar"></div>');
+                        }
+
+                        var autoplay = vitrine.autoLoop === 1 ? {
+                            delay: 1000,
+                            disableOnInteraction: false
+                        } : false;
+
+
+                        if (autoplay !== false) {
+                            vitrinePrefs.autoplay = autoplay;
+                        }
+
+                        vitrinePrefs.slidesPerView = vitrine.grid.narrow;
+
+                        vitrinePrefs.spaceBetween = 0;
+
+                        vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
+
+                        vitrinePrefs.direction = vitrine.indicator[0].vertical ? 'vertical' : 'horizontal';
+
+                        if (vitrine.arrows !== 0) {
+                            vitrinePrefs.navigation = {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev'
+                            };
+
+                            $('#swiperID').append('<div class="swiper-button-next"></div>');
+                            $('#swiperID').append('<div class="swiper-button-prev"></div>');
+                        }
+
+
+                    } else {
 
                         $('#vitrine').append('<div class="swiper-container">' +
                             '    <div class="swiper-wrapper"></div>' +
@@ -28,61 +130,88 @@ $(document).ready(function () {
                             '    <div class="swiper-scrollbar"></div>\n' +
                             '  </div>');
 
-
-                        var pagination = vitrine.passIndicator[0].not === 0 ?
-                            vitrine.passIndicator[0].line === 0 ? '.swiper-pagination' : '' : '';
-
-                        var scrollbar = vitrine.passIndicator[0].not === 0 ?
-                            vitrine.passIndicator[0].line === 1 ? '.swiper-scrollbar' : '' : '';
-
-                        var autoplay = vitrine.autoLoop === 1 ? {
-                            delay: 1000,
-                            disableOnInteraction: false
-                        } : false;
-
-                        var swiper = new Swiper('.swiper-container', {
-                            slidesPerView: vitrine.grid.narrow,
+                        vitrinePrefs = {
+                            slidesPerView: 1,
                             spaceBetween: 0,
                             centeredSlides: false,
-                            mousewheel: vitrine.mouseWeel === 1,
-                            direction: vitrine.indicator[0].vertical ? 'vertical' : 'horizontal',
+                            mousewheel: 0,
+                            direction: 'horizontal',
                             pagination: {
-                                el: pagination,
+                                el: '.swiper-pagination',
                                 clickable: true
                             },
-                            autoplay: autoplay,
+                            autoplay: false,
                             scrollbar: {
-                                el: scrollbar,
+                                el: '',
                                 hide: false
                             },
                             navigation: {
                                 nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
                                 prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
-                            },
-                            virtual: {
-                                slides: (function () {
-                                    var slides = [];
-                                    for (var i = 0; i < 3; i++) {
-                                        slides.push('<p class="text">' +  vitrine.labels[0].attrName + '</p>');
-                                    }
-                                    return slides;
-                                }())
                             }
-                        });
-
-                        $(".text").css({
-                            "padding-top" : vitrine.labels[0].bottom === 1 ? '35%' : '0%',
-                            "padding-bottom" : vitrine.labels[0].top === 1 ? '35%' : '0%',
-                            "font-size": vitrine.labels[0].fontSize,
-                            'color': vitrine.labels[0].fontColor,
-                            "font-family": vitrine.fontFamily
-                        });
-                    },
-                    error: function () {
-
+                        };
                     }
-                });
 
+                    var swiper = new Swiper('.swiper-container', vitrinePrefs);
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
+                        headers: {
+                            'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
+                        },
+                        data: JSON.stringify({
+                            "sku": "ANA-DÇ-GA0452",
+                            "limit": 5,
+                            "listChave": [{
+                                "key": vitrine.labels[0].attrName
+                            }
+                            ],
+                            "listAtributo": [{
+                                "key": vitrine.labels[0].attrName
+                            }
+                            ]
+                        }),
+                        success: data => {
+                            console.log(data.resposta);
+
+                            let resposta = data.resposta;
+                            let slides = [];
+
+
+                            resposta.forEach(atributo => {
+                                var arr = $.map(atributo.attributes, function(el) { return el });
+                                arr.forEach(value => {
+
+                                    slides.push('<div class="swiper-slide"><p id="button" class="text">' + value + '</p></div>');
+
+                                });
+                            });
+
+                            swiper.appendSlide(slides);
+
+                            $(".text").css({
+                                "padding-top": vitrine.labels[0].bottom === 1 ? '35%' : '0%',
+                                "padding-bottom": vitrine.labels[0].top === 1 ? '35%' : '0%',
+                                "font-size": vitrine.labels[0].fontSize,
+                                'color': vitrine.labels[0].fontColor,
+                                "font-family": vitrine.fontFamily
+                            });
+
+                            swiper.update();
+                            swiper.autoplay.stop();
+                            swiper.autoplay.start();
+                        },
+                        error: error => {
+
+                        }
+                    });
+                },
+                error: function () {
+
+                }
             });
-    });
-});
+
+        });
+}
