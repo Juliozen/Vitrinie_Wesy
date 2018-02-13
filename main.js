@@ -27,10 +27,9 @@ function Vitrine(usuario, senha) {
     });
 
 
-
 }
 
-function onClickButton(varFunction){
+function onClickButton(varFunction) {
     $('#button').onclick(varFunction);
 }
 
@@ -63,11 +62,10 @@ function init() {
                             '  </div>');
 
 
-
                         vitrinePrefs.centeredSlides = true;
                         vitrinePrefs.loop = false;
 
-                        var pagination = vitrine.passIndicator[0].not === 0 ?
+                        let pagination = vitrine.passIndicator[0].not === 0 ?
                             vitrine.passIndicator[0].line === 0 ? {
                                 el: '.swiper-pagination',
                                 clickable: true
@@ -78,7 +76,7 @@ function init() {
                             $('#swiperID').append('<div class="swiper-pagination"></div>');
                         }
 
-                        var scrollbar = vitrine.passIndicator[0].not === 0 ?
+                        let scrollbar = vitrine.passIndicator[0].not === 0 ?
                             vitrine.passIndicator[0].line === 1 ? {
                                 el: '.swiper-scrollbar',
                                 hide: false
@@ -90,7 +88,7 @@ function init() {
                             $('#swiperID').append('<div class="swiper-scrollbar"></div>');
                         }
 
-                        var autoplay = vitrine.autoLoop === 1 ? {
+                        let autoplay = vitrine.autoLoop === 1 ? {
                             delay: 1000,
                             disableOnInteraction: false
                         } : false;
@@ -152,7 +150,7 @@ function init() {
                         };
                     }
 
-                    var swiper = new Swiper('.swiper-container', vitrinePrefs);
+                    let swiper = new Swiper('.swiper-container', vitrinePrefs);
 
 
                     $.ajax({
@@ -166,11 +164,23 @@ function init() {
                             "limit": 5,
                             "listChave": [{
                                 "key": vitrine.labels[0].attrName
-                            }
+                            },
+                                {
+                                    "key": vitrine.labels[1].attrName
+                                },
+                                {
+                                    "key": vitrine.labels[2].attrName
+                                }
                             ],
                             "listAtributo": [{
                                 "key": vitrine.labels[0].attrName
-                            }
+                            },
+                                {
+                                    "key": vitrine.labels[1].attrName
+                                },
+                                {
+                                    "key": vitrine.labels[2].attrName
+                                }
                             ]
                         }),
                         success: data => {
@@ -181,21 +191,40 @@ function init() {
 
 
                             resposta.forEach(atributo => {
-                                var arr = $.map(atributo.attributes, function(el) { return el });
-                                arr.forEach(value => {
+                                let arr = atributo.attributes;
 
-                                    slides.push('<div class="swiper-slide"><p id="button" class="text">' + value + '</p></div>');
+                                slides.push('<div class="swiper-slide textsSlides">' +
 
-                                });
+                                    '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
+                                    '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
+                                    '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>' +
+
+
+                                    '</div>');
                             });
 
                             swiper.appendSlide(slides);
 
-                            $(".text").css({
-                                "padding-top": vitrine.labels[0].bottom === 1 ? '35%' : '0%',
-                                "padding-bottom": vitrine.labels[0].top === 1 ? '35%' : '0%',
+                            $(".text0").css({
+                                "padding-bottom": '30%',
+                                "display": vitrine.labels[0].hide === 1 ? 'none' : 'flex',
                                 "font-size": vitrine.labels[0].fontSize,
                                 'color': vitrine.labels[0].fontColor,
+                                "font-family": vitrine.fontFamily
+                            });
+                            $(".text1").css({
+                                "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
+                                "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
+                                "display": vitrine.labels[1].hide === 1 ? 'none' : 'flex',
+                                "font-size": vitrine.labels[1].fontSize,
+                                'color': vitrine.labels[1].fontColor,
+                                "font-family": vitrine.fontFamily
+                            });
+                            $(".text2").css({
+                                "padding-top": vitrine.labels[0].hide === 1 ? '30%' : '0%',
+                                "display": vitrine.labels[2].hide === 1 ? 'none' : 'flex',
+                                "font-size": vitrine.labels[2].fontSize,
+                                'color': vitrine.labels[2].fontColor,
                                 "font-family": vitrine.fontFamily
                             });
 
@@ -208,7 +237,7 @@ function init() {
                         }
                     });
                 },
-                error: function () {
+                error: () => {
 
                 }
             });
