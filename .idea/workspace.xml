@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6efebf7f-8bd2-40d2-a6af-d8b6cd1c54d3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
-      <change beforePath="$PROJECT_DIR$/vitrine.css" afterPath="$PROJECT_DIR$/vitrine.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +16,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="223" column="83" lean-forward="true" selection-start-line="223" selection-start-column="83" selection-end-line="223" selection-end-column="83" />
+            <state relative-caret-position="430">
+              <caret line="210" column="72" lean-forward="true" selection-start-line="210" selection-start-column="72" selection-end-line="210" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -168,12 +166,12 @@
       <updated>1518020120731</updated>
       <workItem from="1518020122562" duration="3692000" />
       <workItem from="1518191672669" duration="13011000" />
-      <workItem from="1518537090841" duration="11539000" />
+      <workItem from="1518537090841" duration="12631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38401000" />
+    <option name="totallyTimeSpent" value="39493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -375,8 +373,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="223" column="83" lean-forward="true" selection-start-line="223" selection-start-column="83" selection-end-line="223" selection-end-column="83" />
+        <state relative-caret-position="430">
+          <caret line="210" column="72" lean-forward="true" selection-start-line="210" selection-start-column="72" selection-end-line="210" selection-end-column="72" />
           <folding />
         </state>
       </provider>

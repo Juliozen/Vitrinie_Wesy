@@ -206,7 +206,7 @@ function init() {
                             swiper.appendSlide(slides);
 
                             $(".text0").css({
-                                // "padding-bottom": '30%',
+                                "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
                                 "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
                                 "font-size": vitrine.labels[0].fontSize,
                                 'color': vitrine.labels[0].fontColor,
