@@ -206,23 +206,23 @@ function init() {
                             swiper.appendSlide(slides);
 
                             $(".text0").css({
-                                "padding-bottom": '30%',
-                                "display": vitrine.labels[0].hide === 1 ? 'none' : 'flex',
+                                // "padding-bottom": '30%',
+                                "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
                                 "font-size": vitrine.labels[0].fontSize,
                                 'color': vitrine.labels[0].fontColor,
                                 "font-family": vitrine.fontFamily
                             });
                             $(".text1").css({
-                                "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
-                                "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
-                                "display": vitrine.labels[1].hide === 1 ? 'none' : 'flex',
+                                // "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
+                                // "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
+                                "display": vitrine.labels[1].hide === 1 ? 'none' : 'block',
                                 "font-size": vitrine.labels[1].fontSize,
                                 'color': vitrine.labels[1].fontColor,
                                 "font-family": vitrine.fontFamily
                             });
                             $(".text2").css({
-                                "padding-top": vitrine.labels[0].hide === 1 ? '30%' : '0%',
-                                "display": vitrine.labels[2].hide === 1 ? 'none' : 'flex',
+                                "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+                                "display": vitrine.labels[2].hide === 1 ? 'none' : 'inline-flex',
                                 "font-size": vitrine.labels[2].fontSize,
                                 'color': vitrine.labels[2].fontColor,
                                 "font-family": vitrine.fontFamily
