@@ -61,8 +61,6 @@ function init() {
                             '    <div class="swiper-wrapper"></div>' +
                             '  </div>');
 
-
-                        vitrinePrefs.centeredSlides = true;
                         vitrinePrefs.loop = false;
 
                         let pagination = vitrine.passIndicator[0].not === 0 ?
@@ -106,7 +104,31 @@ function init() {
 
                         vitrinePrefs.direction = vitrine.indicator[0].vertical ? 'vertical' : 'horizontal';
 
-                        if (vitrine.arrows !== 0) {
+                        vitrinePrefs.effect = vitrine.effect;
+
+                        if(vitrinePrefs.effect === 'coverflow'){
+                            vitrinePrefs.centeredSlides = true;
+                        } else {
+                            vitrinePrefs.centeredSlides = false;
+                        }
+
+                        vitrinePrefs.cubeEffect = {
+                            shadow: true,
+                            slideShadows: true,
+                            shadowOffset: 20,
+                            shadowScale: 0.94,
+                        };
+
+                        vitrinePrefs.coverflowEffect = {
+                            rotate: 50,
+                            stretch: 0,
+                            depth: 100,
+                            modifier: 1,
+                            slideShadows : true,
+                        };
+
+
+                            if (vitrine.arrows !== 0) {
                             vitrinePrefs.navigation = {
                                 nextEl: '.swiper-button-next',
                                 prevEl: '.swiper-button-prev'
