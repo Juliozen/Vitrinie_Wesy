@@ -136,6 +136,8 @@ function init() {
                                 prevEl: '.swiper-button-prev'
                             };
 
+                            vitrinePrefs.lazy = false;
+
                             if (vitrine.passIndicator[0].color === "white"){
                                 $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
                                 $('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
