@@ -100,6 +100,8 @@ function init() {
 
                         vitrinePrefs.spaceBetween = 0;
 
+                        vitrinePrefs.zoom = vitrine.zoom === 1;
+
                         vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
 
                         vitrinePrefs.direction = vitrine.indicator[0].vertical ? 'vertical' : 'horizontal';
@@ -134,8 +136,16 @@ function init() {
                                 prevEl: '.swiper-button-prev'
                             };
 
-                            $('#swiperID').append('<div class="swiper-button-next"></div>');
-                            $('#swiperID').append('<div class="swiper-button-prev"></div>');
+                            if (vitrine.passIndicator[0].color === "white"){
+                                $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
+                                $('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
+                            } else if(vitrine.passIndicator[0].color === "black"){
+                                $('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
+                                $('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
+                            } else {
+                                $('#swiperID').append('<div class="swiper-button-next"></div>');
+                                $('#swiperID').append('<div class="swiper-button-prev"></div>');
+                            }
                         }
 
 
