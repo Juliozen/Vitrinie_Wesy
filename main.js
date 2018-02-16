@@ -136,7 +136,7 @@ function init() {
                                 prevEl: '.swiper-button-prev'
                             };
 
-                            vitrinePrefs.lazy = vitrine.lazy === 1;
+                            vitrinePrefs.lazy = 1;
 
                             if (vitrine.passIndicator[0].color === "white"){
                                 $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
@@ -229,11 +229,12 @@ function init() {
 
                                 slides.push('<div class="swiper-slide textsSlides">' +
 
-                                    '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
-                                    '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
-                                    '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>' +
-
-
+                                    // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
+                                    //     '<div class="swiper-lazy-preloader"></div>\n' +
+                                        '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
+                                        '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
+                                        '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+                                        // '</div>\n' +
                                     '</div>');
                             });
 
