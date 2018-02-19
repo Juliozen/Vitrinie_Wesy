@@ -106,7 +106,7 @@ function init() {
 
                         vitrinePrefs.direction = vitrine.indicator[0].vertical ? 'vertical' : 'horizontal';
 
-                        vitrinePrefs.effect = vitrine.effect;
+                        vitrinePrefs.effect = vitrine.effect !== null ? vitrine.effect : "";
 
                         if(vitrinePrefs.effect === 'coverflow'){
                             vitrinePrefs.centeredSlides = true;
@@ -194,16 +194,13 @@ function init() {
                             'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
                         },
                         data: JSON.stringify({
-                            "sku": "ANA-DÇ-GA0452",
+                            "sku": "CRE-FG-DC4850",
                             "limit": 5,
                             "listChave": [{
                                 "key": vitrine.labels[0].attrName
                             },
                                 {
                                     "key": vitrine.labels[1].attrName
-                                },
-                                {
-                                    "key": vitrine.labels[2].attrName
                                 }
                             ],
                             "listAtributo": [{
@@ -223,11 +220,12 @@ function init() {
                             let resposta = data.resposta;
                             let slides = [];
 
+                            console.log(resposta);
 
                             resposta.forEach(atributo => {
                                 let arr = atributo.attributes;
 
-                                slides.push('<div class="swiper-slide textsSlides">' +
+                                slides.push('<div class="swiper-slide textsSlides" style="background-image:url('+arr[vitrine.labels[2].attrName]+')">' +
 
                                     // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
                                     //     '<div class="swiper-lazy-preloader"></div>\n' +
