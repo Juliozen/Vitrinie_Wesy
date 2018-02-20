@@ -18,6 +18,10 @@ body {
 }
 
 .swiper-slide {
+
+    background: #dddddd;
+
+
     display: flex;
     flex-direction: column;
     width: 100%;
