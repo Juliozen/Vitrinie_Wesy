@@ -241,16 +241,37 @@ function init() {
         resposta.forEach(atributo => {
 
             let arr = atributo.attributes;
+            if(arr[vitrine.labels[1].attrName].length > 100) {
+                arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0,99)+"...";
+            }
+            if (vitrine.grid.typeLayout === 1) {
+                slides.push(
+                    '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
+                        '<div class="swiper-slide-content" style="width: 100%; height: 100%;">\n' +
 
-            slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["link_imagem"] + ')">' +
+                            '<div class="card-background-image" style="background-image:url(' + arr["link_imagem"] + ')">\n' +
+                            '</div>\n' +
+                            '<div id="cardTexts">\n' +
 
-                // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
-                //     '<div class="swiper-lazy-preloader"></div>\n' +
-                '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
-                '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
-                '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
-                // '</div>\n' +
-                '</div>');
+                                '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
+                                '<p align="center" class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
+                                '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+
+                            '</div>\n' +
+                        '</div>\n' +
+                    '</div>');
+            } else {
+
+                slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["link_imagem"] + ')">' +
+
+                    // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
+                    //     '<div class="swiper-lazy-preloader"></div>\n' +
+                    '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
+                    '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
+                    '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+                    // '</div>\n' +
+                    '</div>');
+            }
 
 
         });
@@ -271,7 +292,7 @@ function init() {
         $(".text0").css({
             "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
-            "font-size": vitrine.labels[0].fontSize,
+            "font-size":   "20px"     ,//vitrine.labels[0].fontSize,
             'color': vitrine.labels[0].fontColor,
             "font-family": vitrine.fontFamily
         });
@@ -279,14 +300,14 @@ function init() {
             // "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
             // "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
             "display": vitrine.labels[1].hide === 1 ? 'none' : 'block',
-            "font-size": vitrine.labels[1].fontSize,
+            "font-size":     "10px",          //vitrine.labels[1].fontSize,
             'color': vitrine.labels[1].fontColor,
             "font-family": vitrine.fontFamily
         });
         $(".text2").css({
             "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[2].hide === 1 ? 'none' : 'inline-flex',
-            "font-size": vitrine.labels[2].fontSize,
+            "font-size": "15px",//vitrine.labels[2].fontSize,
             'color': vitrine.labels[2].fontColor,
             "font-family": vitrine.fontFamily
         });
