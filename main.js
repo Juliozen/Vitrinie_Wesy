@@ -96,7 +96,6 @@ function init() {
                             vitrinePrefs.autoplay = autoplay;
                         }
 
-                        vitrinePrefs.slidesPerView = vitrine.grid.narrow;
 
                         vitrinePrefs.spaceBetween = 0;
 
@@ -108,7 +107,7 @@ function init() {
 
                         vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
-                        if(vitrinePrefs.effect === 'coverflow'){
+                        if (vitrinePrefs.effect === 'coverflow') {
                             vitrinePrefs.centeredSlides = true;
                         } else {
                             vitrinePrefs.centeredSlides = false;
@@ -126,11 +125,11 @@ function init() {
                             stretch: 0,
                             depth: 100,
                             modifier: 1,
-                            slideShadows : true,
+                            slideShadows: true,
                         };
 
 
-                            if (vitrine.arrows !== 0) {
+                        if (vitrine.arrows !== 0) {
                             vitrinePrefs.navigation = {
                                 nextEl: '.swiper-button-next',
                                 prevEl: '.swiper-button-prev'
@@ -138,10 +137,10 @@ function init() {
 
                             vitrinePrefs.lazy = 1;
 
-                            if (vitrine.passIndicator[0].color === "white"){
+                            if (vitrine.passIndicator[0].color === "white") {
                                 $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
                                 $('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
-                            } else if(vitrine.passIndicator[0].color === "black"){
+                            } else if (vitrine.passIndicator[0].color === "black") {
                                 $('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
                                 $('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
                             } else {
@@ -184,8 +183,6 @@ function init() {
                         };
                     }
 
-                    let swiper = new Swiper('.swiper-container', vitrinePrefs);
-
 
                     $.ajax({
                         type: "POST",
@@ -194,13 +191,13 @@ function init() {
                             'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
                         },
                         data: JSON.stringify({
-                            "sku": "VIZZANO-SALTO",
-                            "limit": 5,
+                            "sku": "test1",
+                            "limit": 10,
                             "listChave": [{
                                 "key": vitrine.labels[0].attrName
                             },
                                 {
-                                    "key": vitrine.labels[1].attrName
+                                    "key": vitrine.labels[2].attrName
                                 }
                             ],
                             "listAtributo": [{
@@ -211,59 +208,20 @@ function init() {
                                 },
                                 {
                                     "key": vitrine.labels[2].attrName
+                                },
+                                {
+                                    "key": "link_imagem"
                                 }
                             ]
                         }),
                         success: data => {
-                            console.log(data.resposta);
-
                             let resposta = data.resposta;
                             let slides = [];
 
+                            console.log("DADOS AQUI");
                             console.log(resposta);
 
-                            resposta.forEach(atributo => {
-                                let arr = atributo.attributes;
-
-                                slides.push('<div class="swiper-slide textsSlides" style="background-image:url('+arr[vitrine.labels[2].attrName]+')">' +
-
-                                    // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
-                                    //     '<div class="swiper-lazy-preloader"></div>\n' +
-                                        '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
-                                        '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
-                                        '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
-                                        // '</div>\n' +
-                                    '</div>');
-                            });
-
-                            swiper.appendSlide(slides);
-
-                            $(".text0").css({
-                                "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
-                                "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
-                                "font-size": vitrine.labels[0].fontSize,
-                                'color': vitrine.labels[0].fontColor,
-                                "font-family": vitrine.fontFamily
-                            });
-                            $(".text1").css({
-                                // "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
-                                // "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
-                                "display": vitrine.labels[1].hide === 1 ? 'none' : 'block',
-                                "font-size": vitrine.labels[1].fontSize,
-                                'color': vitrine.labels[1].fontColor,
-                                "font-family": vitrine.fontFamily
-                            });
-                            $(".text2").css({
-                                "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
-                                "display": vitrine.labels[2].hide === 1 ? 'none' : 'inline-flex',
-                                "font-size": vitrine.labels[2].fontSize,
-                                'color': vitrine.labels[2].fontColor,
-                                "font-family": vitrine.fontFamily
-                            });
-
-                            swiper.update();
-                            swiper.autoplay.stop();
-                            swiper.autoplay.start();
+                            setSwipperSlides(resposta, vitrinePrefs, vitrine);
                         },
                         error: error => {
 
@@ -276,4 +234,68 @@ function init() {
             });
 
         });
+
+
+    function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
+        let slides = [];
+        resposta.forEach(atributo => {
+
+            let arr = atributo.attributes;
+
+            slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["link_imagem"] + ')">' +
+
+                // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
+                //     '<div class="swiper-lazy-preloader"></div>\n' +
+                '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
+                '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
+                '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+                // '</div>\n' +
+                '</div>');
+
+
+        });
+
+        configSwipper(slides, vitrinePrefs, vitrine);
+
+
+    }
+
+    function configSwipper(slides, vitrinePrefs, vitrine) {
+        vitrinePrefs.slidesPerView = vitrine.grid.narrow > slides.length ? slides.length : vitrine.grid.narrow;
+
+
+        let swiper = new Swiper('.swiper-container', vitrinePrefs);
+
+        swiper.appendSlide(slides);
+
+        $(".text0").css({
+            "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
+            "font-size": vitrine.labels[0].fontSize,
+            'color': vitrine.labels[0].fontColor,
+            "font-family": vitrine.fontFamily
+        });
+        $(".text1").css({
+            // "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
+            // "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
+            "display": vitrine.labels[1].hide === 1 ? 'none' : 'block',
+            "font-size": vitrine.labels[1].fontSize,
+            'color': vitrine.labels[1].fontColor,
+            "font-family": vitrine.fontFamily
+        });
+        $(".text2").css({
+            "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            "display": vitrine.labels[2].hide === 1 ? 'none' : 'inline-flex',
+            "font-size": vitrine.labels[2].fontSize,
+            'color': vitrine.labels[2].fontColor,
+            "font-family": vitrine.fontFamily
+        });
+
+        swiper.update();
+
+        if (vitrinePrefs.autoplay) {
+            swiper.autoplay.stop();
+            swiper.autoplay.start();
+        }
+    }
 }
