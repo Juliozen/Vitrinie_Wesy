@@ -87,7 +87,7 @@ function init() {
                         }
 
                         let autoplay = vitrine.autoLoop === 1 ? {
-                            delay: 1000,
+                            delay: 3000,
                             disableOnInteraction: false
                         } : false;
 
@@ -106,7 +106,7 @@ function init() {
 
                         vitrinePrefs.direction = vitrine.indicator[0].vertical ? 'vertical' : 'horizontal';
 
-                        vitrinePrefs.effect = vitrine.effect !== null ? vitrine.effect : "";
+                        vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
                         if(vitrinePrefs.effect === 'coverflow'){
                             vitrinePrefs.centeredSlides = true;
@@ -117,8 +117,8 @@ function init() {
                         vitrinePrefs.cubeEffect = {
                             shadow: true,
                             slideShadows: true,
-                            shadowOffset: 20,
-                            shadowScale: 0.94,
+                            shadowOffset: 40,
+                            shadowScale: 0.90,
                         };
 
                         vitrinePrefs.coverflowEffect = {
@@ -194,7 +194,7 @@ function init() {
                             'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
                         },
                         data: JSON.stringify({
-                            "sku": "CRE-FG-DC4850",
+                            "sku": "VIZZANO-SALTO",
                             "limit": 5,
                             "listChave": [{
                                 "key": vitrine.labels[0].attrName
