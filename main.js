@@ -130,6 +130,11 @@ function init() {
                             slideShadows: true,
                         };
 
+                        vitrinePrefs.keyboard = vitrine.arrows === 1 ? {
+                            enabled: true,
+                        } : {
+                            enabled: false,
+                        };
 
                         if (vitrine.arrows !== 0) {
                             vitrinePrefs.navigation = {
@@ -140,6 +145,8 @@ function init() {
                             vitrinePrefs.lazy = 0;
 
                             vitrinePrefs.spaceBetween = vitrine.grid.spacebetween;
+
+
 
                             if (vitrinePrefs.direction === 'horizontal') {
                                 if (vitrine.passIndicator[0].color === "white") {
