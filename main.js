@@ -69,6 +69,8 @@ function init() {
                                 clickable: true
                             } : '' : '';
 
+
+
                         if (pagination !== '') {
                             vitrinePrefs.pagination = pagination;
                             $('#swiperID').append('<div class="swiper-pagination"></div>');
@@ -103,7 +105,7 @@ function init() {
 
                         vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
 
-                        vitrinePrefs.direction = vitrine.indicator[0].vertical ? 'vertical' : 'horizontal';
+                        vitrinePrefs.direction = vitrine.indicator[0].vertical === 1 ? 'vertical' : 'horizontal';
 
                         vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
@@ -139,15 +141,17 @@ function init() {
 
                             vitrinePrefs.spaceBetween = vitrine.grid.spacebetween;
 
-                            if (vitrine.passIndicator[0].color === "white") {
-                                $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
-                                $('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
-                            } else if (vitrine.passIndicator[0].color === "black") {
-                                $('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
-                                $('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
-                            } else {
-                                $('#swiperID').append('<div class="swiper-button-next"></div>');
-                                $('#swiperID').append('<div class="swiper-button-prev"></div>');
+                            if (vitrinePrefs.direction === 'horizontal') {
+                                if (vitrine.passIndicator[0].color === "white") {
+                                    $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
+                                    $('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
+                                } else if (vitrine.passIndicator[0].color === "black") {
+                                    $('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
+                                    $('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
+                                } else {
+                                    $('#swiperID').append('<div class="swiper-button-next"></div>');
+                                    $('#swiperID').append('<div class="swiper-button-prev"></div>');
+                                }
                             }
                         }
 
