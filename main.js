@@ -257,6 +257,10 @@ function init() {
             if(arr[vitrine.labels[1].attrName].length > 100) {
                 arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0,99)+"...";
             }
+
+            if(arr[vitrine.labels[0].attrName].length > 30) {
+                arr[vitrine.labels[0].attrName] = arr[vitrine.labels[0].attrName].substring(0,29)+"...";
+            }
             if (vitrine.grid.typeLayout === 1) {
                 slides.push(
                     '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
