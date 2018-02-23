@@ -37,7 +37,7 @@ body {
 }
 
 .card-background-image{
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     border-radius: 6px 6px 0px 0px;
     opacity: 0.91;
@@ -68,9 +68,7 @@ body {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
-.vitrine{
 
-}
 .cardTexts{
     /*display: flex;*/
     /*flex: 1 1 auto;*/

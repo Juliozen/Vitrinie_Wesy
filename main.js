@@ -57,7 +57,7 @@ function init() {
 
                     if (vitrine) {
 
-                        $('#vitrine').append('<div id="swiperID" class="swiper-container">' +
+                        $('.vitrine').append('<div id="swiperID" class="swiper-container">' +
                             '    <div class="swiper-wrapper"></div>' +
                             '  </div>');
 
@@ -165,7 +165,7 @@ function init() {
 
                     } else {
 
-                        $('#vitrine').append('<div class="swiper-container">' +
+                        $('.vitrine').append('<div class="swiper-container">' +
                             '    <div class="swiper-wrapper"></div>' +
 
                             '    <div class="swiper-button-next"></div>\n' +
