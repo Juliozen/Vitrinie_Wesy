@@ -72,11 +72,11 @@ body {
 
 }
 .cardTexts{
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    padding: 1rem;
-    line-height: 1.5em;
+    /*display: flex;*/
+    /*flex: 1 1 auto;*/
+    /*flex-direction: column;*/
+    /*padding: 1rem;*/
+    /*line-height: 1.5em;*/
 }
 
 .append-buttons {
