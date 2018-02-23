@@ -57,7 +57,7 @@ function init() {
 
                     if (vitrine) {
 
-                        $('#vitrine').append('<div id="swiperID" class="swiper-container">' +
+                        $('.vitrine').append('<div id="swiperID" class="swiper-container">' +
                             '    <div class="swiper-wrapper"></div>' +
                             '  </div>');
 
@@ -268,7 +268,7 @@ function init() {
 
                             '<div class="card-background-image" style="background-image:url(' + arr["link_imagem"] + ')">\n' +
                             '</div>\n' +
-                            '<div id="cardTexts">\n' +
+                            '<div id="cardTexts" class="cardTexts" onclick="dataLayer.push({\'event\': \'token\'});">\n' +
 
                                 '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
                                 '<p align="center" class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
