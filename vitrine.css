@@ -49,11 +49,7 @@ body {
 .text0 {
     font-size: 25px;
     line-height: 1.1em;
-    display: block;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+    margin-bottom: 0.2em;
 }
 
 .text1 {
@@ -65,6 +61,7 @@ body {
 }
 
 .text2 {
+    text-align: -webkit-center;
     display: block;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
