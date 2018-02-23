@@ -68,7 +68,9 @@ body {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
+.vitrine{
 
+}
 .cardTexts{
     display: flex;
     flex: 1 1 auto;
