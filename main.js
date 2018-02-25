@@ -244,7 +244,7 @@ function init() {
             if(arr[vitrine.labels[1].attrName].length > 100) {
                 arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0,99)+"...";
             }
-            if (vitrine.grid.typeLayout === 0) {
+            if (vitrine.grid.typeLayout === 1) {
                 slides.push(
                     '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
                         '<div class="swiper-slide-content" style="width: 100%; height: 100%;">\n' +
