@@ -69,6 +69,8 @@ function init() {
                                 clickable: true
                             } : '' : '';
 
+
+
                         if (pagination !== '') {
                             vitrinePrefs.pagination = pagination;
                             $('#swiperID').append('<div class="swiper-pagination"></div>');
@@ -103,7 +105,7 @@ function init() {
 
                         vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
 
-                        vitrinePrefs.direction = vitrine.indicator[0].vertical ? 'vertical' : 'horizontal';
+                        vitrinePrefs.direction = vitrine.indicator[0].vertical === 1 ? 'vertical' : 'horizontal';
 
                         vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
@@ -128,6 +130,11 @@ function init() {
                             slideShadows: true,
                         };
 
+                        vitrinePrefs.keyboard = vitrine.arrows === 1 ? {
+                            enabled: true,
+                        } : {
+                            enabled: false,
+                        };
 
                         if (vitrine.arrows !== 0) {
                             vitrinePrefs.navigation = {
@@ -135,17 +142,23 @@ function init() {
                                 prevEl: '.swiper-button-prev'
                             };
 
-                            vitrinePrefs.lazy = 1;
+                            vitrinePrefs.lazy = 0;
 
-                            if (vitrine.passIndicator[0].color === "white") {
-                                $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
-                                $('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
-                            } else if (vitrine.passIndicator[0].color === "black") {
-                                $('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
-                                $('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
-                            } else {
-                                $('#swiperID').append('<div class="swiper-button-next"></div>');
-                                $('#swiperID').append('<div class="swiper-button-prev"></div>');
+                            vitrinePrefs.spaceBetween = vitrine.grid.spacebetween;
+
+
+
+                            if (vitrinePrefs.direction === 'horizontal') {
+                                if (vitrine.passIndicator[0].color === "white") {
+                                    $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
+                                    $('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
+                                } else if (vitrine.passIndicator[0].color === "black") {
+                                    $('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
+                                    $('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
+                                } else {
+                                    $('#swiperID').append('<div class="swiper-button-next"></div>');
+                                    $('#swiperID').append('<div class="swiper-button-prev"></div>');
+                                }
                             }
                         }
 
@@ -244,6 +257,10 @@ function init() {
             if(arr[vitrine.labels[1].attrName].length > 100) {
                 arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0,99)+"...";
             }
+
+            if(arr[vitrine.labels[0].attrName].length > 30) {
+                arr[vitrine.labels[0].attrName] = arr[vitrine.labels[0].attrName].substring(0,29)+"...";
+            }
             if (vitrine.grid.typeLayout === 1) {
                 slides.push(
                     '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
@@ -251,7 +268,7 @@ function init() {
 
                             '<div class="card-background-image" style="background-image:url(' + arr["link_imagem"] + ')">\n' +
                             '</div>\n' +
-                            '<div id="cardTexts">\n' +
+                            '<div id="cardTexts" class="cardTexts"">\n' +
 
                                 '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
                                 '<p align="center" class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
@@ -290,26 +307,30 @@ function init() {
         swiper.appendSlide(slides);
 
         $(".text0").css({
-            "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            // "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
-            "font-size":   "20px"     ,//vitrine.labels[0].fontSize,
+            "font-size": vitrine.labels[0].fontSize  ,//vitrine.labels[0].fontSize,
             'color': vitrine.labels[0].fontColor,
-            "font-family": vitrine.fontFamily
+            "font-family": vitrine.labels[0].fontFamily,
+            "padding-left": "15px"
         });
         $(".text1").css({
             // "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
             // "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
             "display": vitrine.labels[1].hide === 1 ? 'none' : 'block',
-            "font-size":     "10px",          //vitrine.labels[1].fontSize,
+            "font-size": vitrine.labels[1].fontSize,    //vitrine.labels[1].fontSize,
             'color': vitrine.labels[1].fontColor,
-            "font-family": vitrine.fontFamily
+            "font-family": vitrine.labels[1].fontFamily,
+            "padding-left": "15px"
         });
         $(".text2").css({
-            "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            // "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[2].hide === 1 ? 'none' : 'inline-flex',
-            "font-size": "15px",//vitrine.labels[2].fontSize,
+            "font-size": vitrine.labels[2].fontSize,//vitrine.labels[2].fontSize,
             'color': vitrine.labels[2].fontColor,
-            "font-family": vitrine.fontFamily
+            "font-family": vitrine.labels[2].fontFamily,
+            "padding-left": "15px",
+            // "margin-bottom": "50px"
         });
 
         swiper.update();
