@@ -99,7 +99,7 @@ function init() {
                         }
 
 
-                        vitrinePrefs.autoHeight = false;
+                        // vitrinePrefs.autoHeight = false;
 
                         vitrinePrefs.spaceBetween = 0;
 
