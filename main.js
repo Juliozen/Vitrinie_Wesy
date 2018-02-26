@@ -89,7 +89,7 @@ function init() {
                         }
 
                         let autoplay = vitrine.autoLoop === 1 ? {
-                            delay: 3000,
+                            delay: 1000,
                             disableOnInteraction: false
                         } : false;
 
@@ -98,6 +98,8 @@ function init() {
                             vitrinePrefs.autoplay = autoplay;
                         }
 
+
+                        vitrinePrefs.autoHeight = false;
 
                         vitrinePrefs.spaceBetween = 0;
 
