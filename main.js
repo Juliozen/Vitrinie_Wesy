@@ -69,8 +69,6 @@ function init() {
                                 clickable: true
                             } : '' : '';
 
-
-
                         if (pagination !== '') {
                             vitrinePrefs.pagination = pagination;
                             $('#swiperID').append('<div class="swiper-pagination"></div>');
@@ -132,6 +130,7 @@ function init() {
                             slideShadows: true,
                         };
 
+
                         vitrinePrefs.keyboard = vitrine.arrows === 1 ? {
                             enabled: true,
                         } : {
@@ -162,7 +161,6 @@ function init() {
                                     $('#swiperID').append('<div class="swiper-button-prev"></div>');
                                 }
                             }
-                        }
 
 
                     } else {
@@ -259,10 +257,6 @@ function init() {
             if(arr[vitrine.labels[1].attrName].length > 100) {
                 arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0,99)+"...";
             }
-
-            if(arr[vitrine.labels[0].attrName].length > 30) {
-                arr[vitrine.labels[0].attrName] = arr[vitrine.labels[0].attrName].substring(0,29)+"...";
-            }
             if (vitrine.grid.typeLayout === 1) {
                 slides.push(
                     '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
@@ -270,7 +264,7 @@ function init() {
 
                             '<div class="card-background-image" style="background-image:url(' + arr["link_imagem"] + ')">\n' +
                             '</div>\n' +
-                            '<div id="cardTexts" class="cardTexts"">\n' +
+                            '<div id="cardTexts">\n' +
 
                                 '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
                                 '<p align="center" class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
@@ -309,30 +303,26 @@ function init() {
         swiper.appendSlide(slides);
 
         $(".text0").css({
-            // "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
-            "font-size": vitrine.labels[0].fontSize  ,//vitrine.labels[0].fontSize,
+            "font-size":   "20px"     ,//vitrine.labels[0].fontSize,
             'color': vitrine.labels[0].fontColor,
-            "font-family": vitrine.labels[0].fontFamily,
-            "padding-left": "15px"
+            "font-family": vitrine.fontFamily
         });
         $(".text1").css({
             // "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
             // "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
             "display": vitrine.labels[1].hide === 1 ? 'none' : 'block',
-            "font-size": vitrine.labels[1].fontSize,    //vitrine.labels[1].fontSize,
+            "font-size":     "10px",          //vitrine.labels[1].fontSize,
             'color': vitrine.labels[1].fontColor,
-            "font-family": vitrine.labels[1].fontFamily,
-            "padding-left": "15px"
+            "font-family": vitrine.fontFamily
         });
         $(".text2").css({
-            // "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[2].hide === 1 ? 'none' : 'inline-flex',
-            "font-size": vitrine.labels[2].fontSize,//vitrine.labels[2].fontSize,
+            "font-size": "15px",//vitrine.labels[2].fontSize,
             'color': vitrine.labels[2].fontColor,
-            "font-family": vitrine.labels[2].fontFamily,
-            "padding-left": "15px",
-            // "margin-bottom": "50px"
+            "font-family": vitrine.fontFamily
         });
 
         swiper.update();
