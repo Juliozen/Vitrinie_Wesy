@@ -148,7 +148,6 @@ function init() {
                             vitrinePrefs.spaceBetween = vitrine.grid.spacebetween;
 
 
-
                             if (vitrinePrefs.direction === 'horizontal') {
                                 if (vitrine.passIndicator[0].color === "white") {
                                     $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
@@ -163,88 +162,88 @@ function init() {
                             }
 
 
-                    } else {
+                        } else {
 
-                        $('#vitrine').append('<div class="swiper-container">' +
-                            '    <div class="swiper-wrapper"></div>' +
+                            $('#vitrine').append('<div class="swiper-container">' +
+                                '    <div class="swiper-wrapper"></div>' +
 
-                            '    <div class="swiper-button-next"></div>\n' +
-                            '    <div class="swiper-button-prev"></div>\n' +
-                            '    <div class="swiper-pagination"></div>\n' +
-                            '    <div class="swiper-scrollbar"></div>\n' +
-                            '  </div>');
+                                '    <div class="swiper-button-next"></div>\n' +
+                                '    <div class="swiper-button-prev"></div>\n' +
+                                '    <div class="swiper-pagination"></div>\n' +
+                                '    <div class="swiper-scrollbar"></div>\n' +
+                                '  </div>');
 
-                        vitrinePrefs = {
-                            slidesPerView: 1,
-                            spaceBetween: 0,
-                            centeredSlides: false,
-                            mousewheel: 0,
-                            direction: 'horizontal',
-                            pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true
-                            },
-                            autoplay: false,
-                            scrollbar: {
-                                el: '',
-                                hide: false
-                            },
-                            navigation: {
-                                nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
-                                prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
-                            }
-                        };
-                    }
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
-                        headers: {
-                            'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
-                        },
-                        data: JSON.stringify({
-                            "sku": "test1",
-                            "limit": 10,
-                            "listChave": [{
-                                "key": vitrine.labels[0].attrName
-                            },
-                                {
-                                    "key": vitrine.labels[2].attrName
-                                }
-                            ],
-                            "listAtributo": [{
-                                "key": vitrine.labels[0].attrName
-                            },
-                                {
-                                    "key": vitrine.labels[1].attrName
+                            vitrinePrefs = {
+                                slidesPerView: 1,
+                                spaceBetween: 0,
+                                centeredSlides: false,
+                                mousewheel: 0,
+                                direction: 'horizontal',
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                    clickable: true
                                 },
-                                {
-                                    "key": vitrine.labels[2].attrName
+                                autoplay: false,
+                                scrollbar: {
+                                    el: '',
+                                    hide: false
                                 },
-                                {
-                                    "key": "link_imagem"
+                                navigation: {
+                                    nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
+                                    prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
                                 }
-                            ]
-                        }),
-                        success: data => {
-                            let resposta = data.resposta;
-                            let slides = [];
-
-                            console.log("DADOS AQUI");
-                            console.log(resposta);
-
-                            setSwipperSlides(resposta, vitrinePrefs, vitrine);
-                        },
-                        error: error => {
-
+                            };
                         }
-                    });
-                },
-                error: () => {
 
-                }
-            });
+
+                        $.ajax({
+                            type: "POST",
+                            url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
+                            headers: {
+                                'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
+                            },
+                            data: JSON.stringify({
+                                "sku": "test1",
+                                "limit": 10,
+                                "listChave": [{
+                                    "key": vitrine.labels[0].attrName
+                                },
+                                    {
+                                        "key": vitrine.labels[2].attrName
+                                    }
+                                ],
+                                "listAtributo": [{
+                                    "key": vitrine.labels[0].attrName
+                                },
+                                    {
+                                        "key": vitrine.labels[1].attrName
+                                    },
+                                    {
+                                        "key": vitrine.labels[2].attrName
+                                    },
+                                    {
+                                        "key": "link_imagem"
+                                    }
+                                ]
+                            }),
+                            success: data => {
+                                let resposta = data.resposta;
+                                let slides = [];
+
+                                console.log("DADOS AQUI");
+                                console.log(resposta);
+
+                                setSwipperSlides(resposta, vitrinePrefs, vitrine);
+                            },
+                            error: error => {
+
+                            }
+                        });
+                    }},
+                    error: () => {
+
+                    }
+                });
 
         });
 
