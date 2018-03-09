@@ -29,8 +29,7 @@ function Vitrine(usuario, senha) {
 }
 
 function onClickButton(varFunction) {
-    $('#button').onclick(varFunction);
-}
+    $('#button').onclick(varFunction);}
 
 
 function init() {
