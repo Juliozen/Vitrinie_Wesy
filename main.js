@@ -33,30 +33,26 @@ function onClickButton(varFunction) {
 
 
 function init() {
-            loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js', value => {
-                loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js', value=> { 
-                     loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js', value=> { 
-                             loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js', value=> {
-                                    loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js' , value =>{
-                                            loadScript('https://www.gstatic.com/firebasejs/4.11.0/firebase.js', value => {
-                                             var config = {
+                        
+                     loadScript('https://www.gstatic.com/firebasejs/4.8.1/firebase.js', value=> { 
+                                            loadScript('https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js', value => {
+                                                const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
+                                                firebase.initializeApp({
                                               apiKey: "AIzaSyBeKDfUngI4aYbIIm-yM-mXtA2PLktBDsc",
                                               authDomain: "suaview-e4ea1.firebaseapp.com",
                                               databaseURL: "https://suaview-e4ea1.firebaseio.com",
                                               projectId: "suaview-e4ea1",
                                               storageBucket: "suaview-e4ea1.appspot.com",
                                               messagingSenderId: "577146762908"
-            };
-                firebase.initializeApp(config);
+            })
+                                        
+                // firebase.initializeApp(config);
                 var db = firebase.firestore();
             });
-
-                                    });
-                                 })
-                        })
-                })
-            })
-        
+                        });
+                    
             loadScript('https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js', value => {
                 $.ajax({
                 type: "GET",
