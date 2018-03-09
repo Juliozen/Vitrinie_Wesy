@@ -33,17 +33,29 @@ function onClickButton(varFunction) {
 
 
 function init() {
-            loadScript('https://www.gstatic.com/firebasejs/4.11.0/firebase.js', value => {
-                var config = {
-                apiKey: "AIzaSyBeKDfUngI4aYbIIm-yM-mXtA2PLktBDsc",
-                authDomain: "suaview-e4ea1.firebaseapp.com",
-                databaseURL: "https://suaview-e4ea1.firebaseio.com",
-                projectId: "suaview-e4ea1",
-                storageBucket: "suaview-e4ea1.appspot.com",
-                messagingSenderId: "577146762908"
+            loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js', value => {
+                loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js', value=> { 
+                     loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js', value=> { 
+                             loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js', value=> {
+                                    loadScript('https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js' , value =>{
+                                            loadScript('https://www.gstatic.com/firebasejs/4.11.0/firebase.js', value => {
+                                             var config = {
+                                              apiKey: "AIzaSyBeKDfUngI4aYbIIm-yM-mXtA2PLktBDsc",
+                                              authDomain: "suaview-e4ea1.firebaseapp.com",
+                                              databaseURL: "https://suaview-e4ea1.firebaseio.com",
+                                              projectId: "suaview-e4ea1",
+                                              storageBucket: "suaview-e4ea1.appspot.com",
+                                              messagingSenderId: "577146762908"
             };
                 firebase.initializeApp(config);
             });
+
+                                    });
+                                 })
+                        })
+                })
+            })
+        
             loadScript('https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js', value => {
                 $.ajax({
                 type: "GET",
@@ -60,6 +72,15 @@ function init() {
                     var vitrine = data.resposta;
 
                     let vitrinePrefs = {};
+
+                    var db = firebase.firestore();
+
+                    db.collection("SuaView_Layout").get().then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            console.log(doc);
+                        });
+                    });
+
 
                     if (vitrine) {
 
