@@ -48,6 +48,7 @@ function init() {
                                               messagingSenderId: "577146762908"
             };
                 firebase.initializeApp(config);
+                var db = firebase.firestore();
             });
 
                                     });
@@ -72,8 +73,6 @@ function init() {
                     var vitrine = data.resposta;
 
                     let vitrinePrefs = {};
-
-                    var db = firebase.firestore();
 
                     db.collection("SuaView_Layout").get().then((querySnapshot) => {
                         querySnapshot.forEach((doc) => {
