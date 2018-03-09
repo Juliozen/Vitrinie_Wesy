@@ -36,9 +36,10 @@ function init() {
                         
                      loadScript('https://www.gstatic.com/firebasejs/4.8.1/firebase.js', value=> { 
                                             loadScript('https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js', value => {
-                                                const firebase = require("firebase");
+                                                // import firebase from "firebase"
+
 // Required for side-effects
-require("firebase/firestore");
+                                                                // $.require("firebase/firestore");
                                                 firebase.initializeApp({
                                               apiKey: "AIzaSyBeKDfUngI4aYbIIm-yM-mXtA2PLktBDsc",
                                               authDomain: "suaview-e4ea1.firebaseapp.com",
@@ -50,6 +51,15 @@ require("firebase/firestore");
                                         
                 // firebase.initializeApp(config);
                 var db = firebase.firestore();
+
+                   db.collection("SuaView_Layout").get().then((querySnapshot) => {
+                    console.log("TESTE");
+                    console.log(querySnapshot);
+
+                        querySnapshot.forEach((doc) => {
+                            console.log(doc.data());
+                        });
+                    });
             });
                         });
                     
@@ -70,11 +80,7 @@ require("firebase/firestore");
 
                     let vitrinePrefs = {};
 
-                    db.collection("SuaView_Layout").get().then((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-                            console.log(doc);
-                        });
-                    });
+                 
 
 
                     if (vitrine) {
