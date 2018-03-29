@@ -210,6 +210,12 @@ function init() {
                             }
 
 
+
+                            db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
+                                console.log("PRODUTOOOSSS");
+                                console.log(snapshot)
+                            });
+
                             $.ajax({
                                 type: "POST",
                                 url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
