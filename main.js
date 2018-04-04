@@ -214,8 +214,12 @@ function init() {
 
                             console.log("PRODUTOOOSSS Antes");
                             db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
-                                console.log("PRODUTOOOSSS");
-                                console.log(snapshot)
+
+
+                                snapshot.forEach(doc => {
+                                    console.log("PRODUTOOOSSS");
+                                    console.log(doc.data());
+                                });
                             });
 
                             $.ajax({
