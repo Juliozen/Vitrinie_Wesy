@@ -26,6 +26,8 @@ function Vitrine(usuario, senha) {
         }
     });
 
+    // init();
+
 
 }
 
@@ -210,7 +212,7 @@ function init() {
                             }
 
 
-
+                            console.log("PRODUTOOOSSS Antes");
                             db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
                                 console.log("PRODUTOOOSSS");
                                 console.log(snapshot)
