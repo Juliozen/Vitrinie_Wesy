@@ -211,60 +211,56 @@ function init() {
                                 };
                             }
 
-
                             console.log("PRODUTOOOSSS Antes");
                             db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
+                                setSwipperSlides(snapshot, vitrinePrefs, vitrine);
 
-
-                                snapshot.forEach(doc => {
-                                    console.log("PRODUTOOOSSS");
-                                    console.log(doc.data());
-                                });
                             });
 
-                            $.ajax({
-                                type: "POST",
-                                url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
-                                headers: {
-                                    'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
-                                },
-                                data: JSON.stringify({
-                                    "sku": "test1",
-                                    "limit": 10,
-                                    "listChave": [{
-                                        "key": vitrine.labels[0].attrName
-                                    },
-                                        {
-                                            "key": vitrine.labels[2].attrName
-                                        }
-                                    ],
-                                    "listAtributo": [{
-                                        "key": vitrine.labels[0].attrName
-                                    },
-                                        {
-                                            "key": vitrine.labels[1].attrName
-                                        },
-                                        {
-                                            "key": vitrine.labels[2].attrName
-                                        },
-                                        {
-                                            "key": "link_imagem"
-                                        }
-                                    ]
-                                }),
-                                success: data => {
-                                    let resposta = data.resposta;
-                                    let slides = [];
 
-                                    console.log("DADOS AQUI");
-                                    console.log(resposta);
-
-                                    setSwipperSlides(resposta, vitrinePrefs, vitrine);
-                                },
-                                error: error => {
-
-                                }
-                            });
+                            // $.ajax({
+                            //     type: "POST",
+                            //     url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
+                            //     headers: {
+                            //         'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
+                            //     },
+                            //     data: JSON.stringify({
+                            //         "sku": "test1",
+                            //         "limit": 10,
+                            //         "listChave": [{
+                            //             "key": vitrine.labels[0].attrName
+                            //         },
+                            //             {
+                            //                 "key": vitrine.labels[2].attrName
+                            //             }
+                            //         ],
+                            //         "listAtributo": [{
+                            //             "key": vitrine.labels[0].attrName
+                            //         },
+                            //             {
+                            //                 "key": vitrine.labels[1].attrName
+                            //             },
+                            //             {
+                            //                 "key": vitrine.labels[2].attrName
+                            //             },
+                            //             {
+                            //                 "key": "link_imagem"
+                            //             }
+                            //         ]
+                            //     }),
+                            //     success: data => {
+                            //         let resposta = data.resposta;
+                            //         let slides = [];
+                            //
+                            //         console.log("DADOS AQUI");
+                            //         console.log(resposta);
+                            //
+                            //         setSwipperSlides(resposta, vitrinePrefs, vitrine);
+                            //     },
+                            //     error: error => {
+                            //
+                            //     }
+                            // });
                         }
 
 
@@ -279,7 +275,7 @@ function init() {
         let slides = [];
         resposta.forEach(atributo => {
 
-            let arr = atributo.attributes;
+            let arr = atributo.data();
             if (arr[vitrine.labels[1].attrName].length > 100) {
                 arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0, 99) + "...";
             }
@@ -288,26 +284,32 @@ function init() {
                     '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
                     '<div class="swiper-slide-content" style="width: 100%; height: 100%;">\n' +
 
-                    '<div class="card-background-image" style="background-image:url(' + arr["link_imagem"] + ')">\n' +
+                    '<div class="card-background-image" style="background-image:url(' + arr["image_link"] + ')">\n' +
                     '</div>\n' +
                     '<div id="cardTexts">\n' +
 
-                    '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
-                    '<p align="center" class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
-                    '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+                    // '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
+                    // '<p align="center" class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
+                    // '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+                    '<p class="text0">' + arr["id"] + '</p>\n' +
+                    '<p align="center" class="text1">' + arr["description"] + '</p>\n' +
+                    '<p class="text2">' + arr["sale_price"] + '</p>\n' +
 
                     '</div>\n' +
                     '</div>\n' +
                     '</div>');
             } else {
 
-                slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["link_imagem"] + ')">' +
+                slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["image_link"] + ')">' +
 
                     // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
                     //     '<div class="swiper-lazy-preloader"></div>\n' +
-                    '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
-                    '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
-                    '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+                    // '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
+                    // '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
+                    // '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
+                    '<p class="text0">' + arr["id"] + '</p>\n' +
+                    '<p class="text1">' + arr["description"] + '</p>\n' +
+                    '<p class="text2">' + arr["sale_price"] + '</p>\n' +
                     // '</div>\n' +
                     '</div>');
             }
