@@ -3,6 +3,8 @@ var token;
 function Vitrine(usuario, senha) {
 
     console.log("USUARIO:" + usuario + " SENHA: " + senha);
+    console.log("USUARIO:" + usuario + " SENHA: " + senha);
+    console.log("USUARIO:" + usuario + " SENHA: " + senha);
 
     $.ajax({
         type: "POST",
@@ -251,7 +253,7 @@ function init() {
     function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
         let slides = [];
         resposta.forEach(atributo => {
-
+// asijfboasifjsahfu9saofhsagfuasyftasgy8huojk
             let arr = atributo.attributes;
 
             var tmp = vitrine.labels[1].attrName;
