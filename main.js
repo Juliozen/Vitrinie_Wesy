@@ -69,8 +69,6 @@ function init() {
                                 clickable: true
                             } : '' : '';
 
-
-
                         if (pagination !== '') {
                             vitrinePrefs.pagination = pagination;
                             $('#swiperID').append('<div class="swiper-pagination"></div>');
@@ -89,7 +87,7 @@ function init() {
                         }
 
                         let autoplay = vitrine.autoLoop === 1 ? {
-                            delay: 3000,
+                            delay: 1000,
                             disableOnInteraction: false
                         } : false;
 
@@ -98,6 +96,8 @@ function init() {
                             vitrinePrefs.autoplay = autoplay;
                         }
 
+
+                        // vitrinePrefs.autoHeight = false;
 
                         vitrinePrefs.spaceBetween = 0;
 
@@ -108,6 +108,8 @@ function init() {
                         vitrinePrefs.direction = vitrine.indicator[0].vertical === 1 ? 'vertical' : 'horizontal';
 
                         vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
+
+                        vitrinePrefs.loop = vitrine.flowGallery;
 
                         if (vitrinePrefs.effect === 'coverflow') {
                             vitrinePrefs.centeredSlides = true;
@@ -130,6 +132,7 @@ function init() {
                             slideShadows: true,
                         };
 
+
                         vitrinePrefs.keyboard = vitrine.arrows === 1 ? {
                             enabled: true,
                         } : {
@@ -147,7 +150,6 @@ function init() {
                             vitrinePrefs.spaceBetween = vitrine.grid.spacebetween;
 
 
-
                             if (vitrinePrefs.direction === 'horizontal') {
                                 if (vitrine.passIndicator[0].color === "white") {
                                     $('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
@@ -160,91 +162,90 @@ function init() {
                                     $('#swiperID').append('<div class="swiper-button-prev"></div>');
                                 }
                             }
+
+
+                        } else {
+
+                            $('#vitrine').append('<div class="swiper-container">' +
+                                '    <div class="swiper-wrapper"></div>' +
+
+                                '    <div class="swiper-button-next"></div>\n' +
+                                '    <div class="swiper-button-prev"></div>\n' +
+                                '    <div class="swiper-pagination"></div>\n' +
+                                '    <div class="swiper-scrollbar"></div>\n' +
+                                '  </div>');
+
+                            vitrinePrefs = {
+                                slidesPerView: 1,
+                                spaceBetween: 0,
+                                centeredSlides: false,
+                                mousewheel: 0,
+                                direction: 'horizontal',
+                                pagination: {
+                                    el: '.swiper-pagination',
+                                    clickable: true
+                                },
+                                autoplay: false,
+                                scrollbar: {
+                                    el: '',
+                                    hide: false
+                                },
+                                navigation: {
+                                    nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
+                                    prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
+                                }
+                            };
                         }
 
 
-                    } else {
-
-                        $('#vitrine').append('<div class="swiper-container">' +
-                            '    <div class="swiper-wrapper"></div>' +
-
-                            '    <div class="swiper-button-next"></div>\n' +
-                            '    <div class="swiper-button-prev"></div>\n' +
-                            '    <div class="swiper-pagination"></div>\n' +
-                            '    <div class="swiper-scrollbar"></div>\n' +
-                            '  </div>');
-
-                        vitrinePrefs = {
-                            slidesPerView: 1,
-                            spaceBetween: 0,
-                            centeredSlides: false,
-                            mousewheel: 0,
-                            direction: 'horizontal',
-                            pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true
+                        $.ajax({
+                            type: "POST",
+                            url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
+                            headers: {
+                                'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
                             },
-                            autoplay: false,
-                            scrollbar: {
-                                el: '',
-                                hide: false
+                            data: JSON.stringify({
+                                "sku": "test1",
+                                "limit": 10,
+                                "listChave": [{
+                                    "key": vitrine.labels[0].attrName
+                                },
+                                    {
+                                        "key": vitrine.labels[2].attrName
+                                    }
+                                ],
+                                "listAtributo": [{
+                                    "key": vitrine.labels[0].attrName
+                                },
+                                    {
+                                        "key": vitrine.labels[1].attrName
+                                    },
+                                    {
+                                        "key": vitrine.labels[2].attrName
+                                    },
+                                    {
+                                        "key": "link_imagem"
+                                    }
+                                ]
+                            }),
+                            success: data => {
+                                let resposta = data.resposta;
+                                let slides = [];
+
+                                console.log("DADOS AQUI");
+                                console.log(resposta);
+
+                                setSwipperSlides(resposta, vitrinePrefs, vitrine);
                             },
-                            navigation: {
-                                nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
-                                prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
+                            error: error => {
+
                             }
-                        };
+                        });
+                    }},
+                    error: () => {
+
                     }
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
-                        headers: {
-                            'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
-                        },
-                        data: JSON.stringify({
-                            "sku": "test1",
-                            "limit": 10,
-                            "listChave": [{
-                                "key": vitrine.labels[0].attrName
-                            },
-                                {
-                                    "key": vitrine.labels[2].attrName
-                                }
-                            ],
-                            "listAtributo": [{
-                                "key": vitrine.labels[0].attrName
-                            },
-                                {
-                                    "key": vitrine.labels[1].attrName
-                                },
-                                {
-                                    "key": vitrine.labels[2].attrName
-                                },
-                                {
-                                    "key": "link_imagem"
-                                }
-                            ]
-                        }),
-                        success: data => {
-                            let resposta = data.resposta;
-                            let slides = [];
-
-                            console.log("DADOS AQUI");
-                            console.log(resposta);
-
-                            setSwipperSlides(resposta, vitrinePrefs, vitrine);
-                        },
-                        error: error => {
-
-                        }
-                    });
-                },
-                error: () => {
-
-                }
-            });
+                });
 
         });
 
@@ -257,10 +258,6 @@ function init() {
             if(arr[vitrine.labels[1].attrName].length > 100) {
                 arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0,99)+"...";
             }
-
-            if(arr[vitrine.labels[0].attrName].length > 30) {
-                arr[vitrine.labels[0].attrName] = arr[vitrine.labels[0].attrName].substring(0,29)+"...";
-            }
             if (vitrine.grid.typeLayout === 1) {
                 slides.push(
                     '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
@@ -268,7 +265,7 @@ function init() {
 
                             '<div class="card-background-image" style="background-image:url(' + arr["link_imagem"] + ')">\n' +
                             '</div>\n' +
-                            '<div id="cardTexts" class="cardTexts"">\n' +
+                            '<div id="cardTexts">\n' +
 
                                 '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
                                 '<p align="center" class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
@@ -304,33 +301,30 @@ function init() {
 
         let swiper = new Swiper('.swiper-container', vitrinePrefs);
 
+        swiper.update();
         swiper.appendSlide(slides);
 
         $(".text0").css({
-            // "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            "padding-bottom": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
-            "font-size": vitrine.labels[0].fontSize  ,//vitrine.labels[0].fontSize,
+            "font-size":   "20px"     ,//vitrine.labels[0].fontSize,
             'color': vitrine.labels[0].fontColor,
-            "font-family": vitrine.labels[0].fontFamily,
-            "padding-left": "15px"
+            "font-family": vitrine.fontFamily
         });
         $(".text1").css({
             // "padding-top": vitrine.labels[2].hide === 0 && vitrine.labels[0].hide === 1 ? '30%' : '0%',
             // "padding-bottom": vitrine.labels[0].hide === 0 ? '30%' : '0%',
             "display": vitrine.labels[1].hide === 1 ? 'none' : 'block',
-            "font-size": vitrine.labels[1].fontSize,    //vitrine.labels[1].fontSize,
+            "font-size":     "10px",          //vitrine.labels[1].fontSize,
             'color': vitrine.labels[1].fontColor,
-            "font-family": vitrine.labels[1].fontFamily,
-            "padding-left": "15px"
+            "font-family": vitrine.fontFamily
         });
         $(".text2").css({
-            // "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
+            "padding-top": vitrine.labels[1].hide === 1 ? '10%' : '0%',
             "display": vitrine.labels[2].hide === 1 ? 'none' : 'inline-flex',
-            "font-size": vitrine.labels[2].fontSize,//vitrine.labels[2].fontSize,
+            "font-size": "15px",//vitrine.labels[2].fontSize,
             'color': vitrine.labels[2].fontColor,
-            "font-family": vitrine.labels[2].fontFamily,
-            "padding-left": "15px",
-            // "margin-bottom": "50px"
+            "font-family": vitrine.fontFamily
         });
 
         swiper.update();
