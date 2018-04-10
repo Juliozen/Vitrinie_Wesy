@@ -254,7 +254,7 @@ function init() {
 
             let arr = atributo.attributes;
 
-            var tmp vitrine.labels[1].attrName;
+            var tmp = vitrine.labels[1].attrName;
             alert(tmp);
 
             if(arr[vitrine.labels[1].attrName].length > 100) {
