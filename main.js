@@ -109,8 +109,6 @@ function init() {
 
                         vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
-                        vitrinePrefs.loop = vitrine.flowGallery;
-
                         if (vitrinePrefs.effect === 'coverflow') {
                             vitrinePrefs.centeredSlides = true;
                         } else {
@@ -301,7 +299,6 @@ function init() {
 
         let swiper = new Swiper('.swiper-container', vitrinePrefs);
 
-        swiper.update();
         swiper.appendSlide(slides);
 
         $(".text0").css({
