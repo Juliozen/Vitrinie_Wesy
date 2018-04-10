@@ -253,6 +253,10 @@ function init() {
         resposta.forEach(atributo => {
 
             let arr = atributo.attributes;
+
+            var tmp vitrine.labels[1].attrName;
+            alert(tmp);
+
             if(arr[vitrine.labels[1].attrName].length > 100) {
                 arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0,99)+"...";
             }
