@@ -213,6 +213,7 @@ function init() {
 
                             console.log("PRODUTOOOSSS Antes");
                             db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
+                                console.log(snapshot);
                                 setSwipperSlides(snapshot, vitrinePrefs, vitrine);
 
                             });
