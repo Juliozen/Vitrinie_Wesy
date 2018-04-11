@@ -212,7 +212,7 @@ function init() {
                             }
 
                             console.log("PRODUTOOOSSS Antes");
-                            db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
+                            db.collection("SuaView").doc("Products").collection("dogenes@live.com").doc("Layout").collection("AllProducts").orderBy("id").limit(5).onSnapshot(snapshot => {
                                 setSwipperSlides(snapshot, vitrinePrefs, vitrine);
 
                             });
@@ -276,9 +276,11 @@ function init() {
         resposta.forEach(atributo => {
 
             let arr = atributo.data();
-            if (arr["description"].length > 100) {
-                arr["description"] = arr["description"].substring(0, 99) + "...";
-            }
+            console.log(arr);
+            console.log(vitrine);
+            // if (arr[vitrine.labels[1].attrName].length > 100) {
+            //     arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0, 99) + "...";
+            // }
             if (vitrine.grid.typeLayout === 1) {
                 slides.push(
                     '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
