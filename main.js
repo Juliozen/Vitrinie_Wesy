@@ -26,7 +26,7 @@ function Vitrine(usuario, senha) {
         }
     });
 
-    // init();
+     init();
 
 
 }
