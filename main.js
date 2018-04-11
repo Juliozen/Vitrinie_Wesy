@@ -328,7 +328,7 @@ function init() {
 
         let swiper = new Swiper('.swiper-container', vitrinePrefs);
 
-        swiper.update();
+        // swiper.update();
         swiper.appendSlide(slides);
 
         $(".text0").css({
@@ -354,7 +354,7 @@ function init() {
             "font-family": vitrine.fontFamily
         });
 
-        swiper.update();
+        // swiper.update();
 
         if (vitrinePrefs.autoplay) {
             swiper.autoplay.stop();
