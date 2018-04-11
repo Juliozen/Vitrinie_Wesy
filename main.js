@@ -215,7 +215,6 @@ function init() {
 
                             console.log("PRODUTOOOSSS Antes");
                             db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
-                                console.log(snapshot.data());
                                 setSwipperSlides(snapshot, swiper, vitrine);
 
                             });
@@ -279,6 +278,7 @@ function init() {
         resposta.forEach(atributo => {
 
             let arr = atributo.data();
+            console.log(arr);
             if (arr["description"].length > 100) {
                 arr["description"] = arr["description"].substring(0, 99) + "...";
             }
