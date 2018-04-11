@@ -210,11 +210,13 @@ function init() {
                                     }
                                 };
                             }
+                            // vitrinePrefs.slidesPerView = vitrine.grid.narrow > slides.length ? slides.length : vitrine.grid.narrow;
+                            let swiper = new Swiper('.swiper-container', vitrinePrefs);
 
                             console.log("PRODUTOOOSSS Antes");
                             db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
-                                console.log(snapshot);
-                                setSwipperSlides(snapshot, vitrinePrefs, vitrine);
+                                console.log(snapshot.data());
+                                setSwipperSlides(snapshot, swiper, vitrine);
 
                             });
 
@@ -323,11 +325,7 @@ function init() {
 
     }
 
-    function configSwipper(slides, vitrinePrefs, vitrine) {
-        vitrinePrefs.slidesPerView = vitrine.grid.narrow > slides.length ? slides.length : vitrine.grid.narrow;
-
-
-        let swiper = new Swiper('.swiper-container', vitrinePrefs);
+    function configSwipper(slides, swiper, vitrine) {
 
         swiper.update();
         swiper.appendSlide(slides);
