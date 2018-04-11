@@ -213,7 +213,7 @@ function init() {
 
                             console.log("PRODUTOOOSSS Antes");
                             db.collection("SuaView_Products").orderBy("id").limit(5).onSnapshot(snapshot => {
-                                setSwipperSlides(snapshot, vitrinePrefs, vitrine);
+                                this.setSwipperSlides(snapshot, vitrinePrefs, vitrine);
 
                             });
 
@@ -328,7 +328,7 @@ function init() {
 
         let swiper = new Swiper('.swiper-container', vitrinePrefs);
 
-        // swiper.update();
+        swiper.update();
         swiper.appendSlide(slides);
 
         $(".text0").css({
@@ -354,7 +354,7 @@ function init() {
             "font-family": vitrine.fontFamily
         });
 
-        // swiper.update();
+        swiper.update();
 
         if (vitrinePrefs.autoplay) {
             swiper.autoplay.stop();
