@@ -50,7 +50,7 @@ function init() {
                 messagingSenderId: "577146762908"
             });
 
-            loadScript('https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js', value => {
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.2/js/swiper.min.js', value => {
 
                 let db = firebase.firestore();
 
