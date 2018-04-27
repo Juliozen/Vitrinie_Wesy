@@ -3,32 +3,61 @@ var token;
 
 var $j = jQuery.noConflict();
 
-function Vitrine(usuario, senha) {
+// function Vitrine(usuario, senha) {
 
-    console.log("USUARIO:" + usuario + " SENHA: " + senha);
+//     console.log("USUARIO:" + usuario + " SENHA: " + senha);
 
-    $j.ajax({
-        type: "POST",
-        url: "http://backend.api.com/oauth/autenticate",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: JSON.stringify({
-            "email": usuario.toString(),
-            "password": senha.toString()
-        }),
-        success: data => {
+//     $j.ajax({
+//         type: "POST",
+//         url: "http://backend.api.com/oauth/autenticate",
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         data: JSON.stringify({
+//             "email": usuario.toString(),
+//             "password": senha.toString()
+//         }),
+//         success: data => {
 
-            token = data.resposta.access_token;
+//             token = data.resposta.access_token;
 
-            init();
+//             init();
 
-        },
-        error: () => {
-        }
+//         },
+//         error: () => {
+//         }
 
-    });
+//     });
+// }
+
+// function verifyUserAndType(url){
+//     .ajax({
+//         type: "POST",
+//         url: "http://backend.api.com/user/typelayout",
+//         headers: {
+//             'Content-Type': 'application/json, url: base/ windown.load'
+//         },
+//         success: data => {
+
+//             token = data.resposta.access_token;
+//             layoutType = sadsa;
+//             searchType = adssa;
+//             init();
+
+//         },
+//         error: () => {
+//         }
+// }
+function Vitrine(tk) {
+
+    console.log("tk:" + tk);
+
+    token = tk;
+    console.log(token);
+    init();
 }
+
+
 
 function onClickButton(varFunction) {
     $j('#button').onclick(varFunction);
@@ -51,7 +80,7 @@ function init() {
 
         let db = firebase.firestore();
 
-        db.collection('SuaView').doc('Layout').collection('dogenes@live.com').get().then((querySnapshot) => {
+        db.collection('SuaView').doc('Layout').collection('julio@julietes.com').get().then((querySnapshot) => {
 
             querySnapshot.forEach((doc) => {
 
@@ -210,13 +239,13 @@ function init() {
                         type: "POST",
                         url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
                         headers: {
-                            'Content-Type': 'application/json', 'Authorization-Token': 'testtoken'
+                            'Content-Type': 'application/json', 'Authorization-Token': token
                         },
                         data: JSON.stringify({
-                            "sku": "test1",
+                            "sku": "OST-PE-AV2200",
                             "limit": 10,
                             "listChave": [{
-                                "key": 'descricao'
+                                "key": 'description'
                              }
                             ],
                             "listAtributo": [{
@@ -227,12 +256,6 @@ function init() {
                                 },
                                 {
                                     "key": vitrine.labels[2].attrName
-                                },
-                                {
-                                    "key": 'link_imagem'
-                                },
-                                {
-                                    "key": 'descricao'
                                 }
 
                             ]
@@ -243,6 +266,7 @@ function init() {
 
                             console.log("DADOS AQUI");
                             console.log(resposta);
+                             console.log(data);
 
                             setSwipperSlides(resposta, vitrinePrefs, vitrine);
                         },
@@ -262,7 +286,6 @@ function init() {
 function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
     let slides = [];
     resposta.forEach(atributo => {
-
         let arr = atributo.chaves;
 
         console.log("Atributos: ", atributo.chaves);
@@ -275,7 +298,7 @@ function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
                 '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
                 '<div class="swiper-slide-content" style="width: 100%; height: 100%;">\n' +
 
-                '<div class="card-background-image" style="background-image:url(' + arr["link_imagem"] + ')">\n'
+                '<div class="card-background-image" style="background-image:url(' + arr["image_link"] + ')">\n'
                 +
                 '</div>\n' +
                 '<div id="cardTexts">\n' +
@@ -289,7 +312,7 @@ function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
                 '</div>');
         } else {
 
-            slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["link_imagem"] + ')">' +
+            slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["image_link"] + ')">' +
 
                 // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
                 //     '<div class="swiper-lazy-preloader"></div>\n' +
@@ -307,6 +330,7 @@ function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
 }
 
 function configSwipper(slides, vitrinePrefs, vitrine) {
+    console.log("entra cara")
     vitrinePrefs.slidesPerView = vitrine.grid.narrow > slides.length ? slides.length : vitrine.grid.narrow;
 
 
