@@ -1,306 +1,192 @@
-var token;
-
-
 var $j = jQuery.noConflict();
 
-// function Vitrine(usuario, senha) {
+/**
+*Primitive helper to render layout
+*/
+var LayoutRender = Class.create();
+LayoutRender.prototype =
+{
+ initialize: function()
+ {
+    
+ },
 
-//     console.log("USUARIO:" + usuario + " SENHA: " + senha);
+  render: function(query, callback)
+  {
+    query.forEach((doc) =>
+    {
+        let vitrine = doc.data();
+        let vitrinePrefs = {};
 
-//     $j.ajax({
-//         type: "POST",
-//         url: "http://backend.api.com/oauth/autenticate",
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         data: JSON.stringify({
-//             "email": usuario.toString(),
-//             "password": senha.toString()
-//         }),
-//         success: data => {
+        if (vitrine)
+        {
+            $j('#vitrine').append('<div id="swiperID" class="swiper-container">' +
+                '    <div class="swiper-wrapper"></div>' +
+                '  </div>');
 
-//             token = data.resposta.access_token;
+            vitrinePrefs.loop = false;
 
-//             init();
+            let pagination = vitrine.passIndicator.not === 0 ?
+                vitrine.passIndicator.line === 0 ? {
+                    el: '.swiper-pagination',
+                    clickable: true
+                } : '' : '';
 
-//         },
-//         error: () => {
-//         }
+            if (pagination !== '') {
+                vitrinePrefs.pagination = pagination;
+                $j('#swiperID').append('<div class="swiper-pagination"></div>');
+            }
 
-//     });
-// }
-
-// function verifyUserAndType(url){
-//     .ajax({
-//         type: "POST",
-//         url: "http://backend.api.com/user/typelayout",
-//         headers: {
-//             'Content-Type': 'application/json, url: base/ windown.load'
-//         },
-//         success: data => {
-
-//             token = data.resposta.access_token;
-//             layoutType = sadsa;
-//             searchType = adssa;
-//             init();
-
-//         },
-//         error: () => {
-//         }
-// }
-function Vitrine(tk) {
-
-    console.log("tk:" + tk);
-
-    token = tk;
-    console.log(token);
-    init();
-}
+            let scrollbar = vitrine.passIndicator.not === 0 ?
+                vitrine.passIndicator.line === 1 ? {
+                    el: '.swiper-scrollbar',
+                    hide: false
+                } : '' : '';
 
 
+            if (scrollbar !== '') {
+                vitrinePrefs.scrollbar = scrollbar;
+                $j('#swiperID').append('<div class="swiper-scrollbar"></div>');
+            }
 
-function onClickButton(varFunction) {
-    $j('#button').onclick(varFunction);
-}
-
-
-function init() {
-    $j.get("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js", () => {
-
-        // alert(" loaded but not necessarily executed.");
-
-        firebase.initializeApp({
-            apiKey: "AIzaSyBeKDfUngI4aYbIIm-yM-mXtA2PLktBDsc",
-            authDomain: "suaview-e4ea1.firebaseapp.com",
-            databaseURL: "https://suaview-e4ea1.firebaseio.com",
-            projectId: "suaview-e4ea1",
-            storageBucket: "suaview-e4ea1.appspot.com",
-            messagingSenderId: "577146762908"
-        });
-
-        let db = firebase.firestore();
-
-        db.collection('SuaView').doc('Layout').collection('julio@julietes.com').get().then((querySnapshot) => {
-
-            querySnapshot.forEach((doc) => {
+            let autoplay = vitrine.autoLoop === 1 ? {
+                delay: 1000,
+                disableOnInteraction: false
+            } : false;
 
 
-                console.log("RESPOSTA DO SERV");
+            if (autoplay !== false) {
+              vitrinePrefs.autoplay = autoplay;
+            }
 
-                let vitrine = doc.data();
+            vitrinePrefs.spaceBetween = 0;
 
-                console.log("LAYOUT: ",vitrine);
-                let vitrinePrefs = {};
+            vitrinePrefs.zoom = vitrine.zoom === 1;
 
-                if (vitrine) {
+            vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
 
-                    $j('#vitrine').append('<div id="swiperID" class="swiper-container">' +
-                        '    <div class="swiper-wrapper"></div>' +
-                        '  </div>');
+            vitrinePrefs.direction = vitrine.indicator.vertical === 1 ? 'vertical' : 'horizontal';
 
-                    vitrinePrefs.loop = false;
+            vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
-                    let pagination = vitrine.passIndicator.not === 0 ?
-                        vitrine.passIndicator.line === 0 ? {
-                            el: '.swiper-pagination',
-                            clickable: true
-                        } : '' : '';
+            vitrinePrefs.loop = vitrine.flowGallery;
 
-                    if (pagination !== '') {
-                        vitrinePrefs.pagination = pagination;
-                        $j('#swiperID').append('<div class="swiper-pagination"></div>');
-                    }
+            if (vitrinePrefs.effect === 'coverflow') {
+                vitrinePrefs.centeredSlides = true;
+            } else {
+                vitrinePrefs.centeredSlides = false;
+            }
 
-                    let scrollbar = vitrine.passIndicator.not === 0 ?
-                        vitrine.passIndicator.line === 1 ? {
-                            el: '.swiper-scrollbar',
-                            hide: false
-                        } : '' : '';
+            vitrinePrefs.cubeEffect = {
+                shadow: true,
+                slideShadows: true,
+                shadowOffset: 40,
+                shadowScale: 0.90,
+            };
 
-
-                    if (scrollbar !== '') {
-                        vitrinePrefs.scrollbar = scrollbar;
-                        $j('#swiperID').append('<div class="swiper-scrollbar"></div>');
-                    }
-
-                    let autoplay = vitrine.autoLoop === 1 ? {
-                        delay: 1000,
-                        disableOnInteraction: false
-                    } : false;
+            vitrinePrefs.coverflowEffect = {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            };
 
 
-                    if (autoplay !== false) {
-                        vitrinePrefs.autoplay = autoplay;
-                    }
+            vitrinePrefs.keyboard = vitrine.arrows === 1 ? {
+                enabled: true,
+            } : {
+                enabled: false,
+            };
+
+            if (vitrine.arrows !== 0) {
+                vitrinePrefs.navigation = {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                };
+
+                vitrinePrefs.lazy = 0;
+
+                vitrinePrefs.spaceBetween = vitrine.grid.spacebetween;
 
 
-                    // vitrinePrefs.autoHeight = false;
-
-                    vitrinePrefs.spaceBetween = 0;
-
-                    vitrinePrefs.zoom = vitrine.zoom === 1;
-
-                    vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
-
-                    vitrinePrefs.direction = vitrine.indicator.vertical === 1 ? 'vertical' : 'horizontal';
-
-                    vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
-
-                    vitrinePrefs.loop = vitrine.flowGallery;
-
-                    if (vitrinePrefs.effect === 'coverflow') {
-                        vitrinePrefs.centeredSlides = true;
+                if (vitrinePrefs.direction === 'horizontal') {
+                    if (vitrine.passIndicator.color === "white") {
+                        $j('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
+                        $j('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
+                    } else if (vitrine.passIndicator.color === "black") {
+                        $j('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
+                        $j('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
                     } else {
-                        vitrinePrefs.centeredSlides = false;
+                        $j('#swiperID').append('<div class="swiper-button-next"></div>');
+                        $j('#swiperID').append('<div class="swiper-button-prev"></div>');
                     }
-
-                    vitrinePrefs.cubeEffect = {
-                        shadow: true,
-                        slideShadows: true,
-                        shadowOffset: 40,
-                        shadowScale: 0.90,
-                    };
-
-                    vitrinePrefs.coverflowEffect = {
-                        rotate: 50,
-                        stretch: 0,
-                        depth: 100,
-                        modifier: 1,
-                        slideShadows: true,
-                    };
-
-
-                    vitrinePrefs.keyboard = vitrine.arrows === 1 ? {
-                        enabled: true,
-                    } : {
-                        enabled: false,
-                    };
-
-                    if (vitrine.arrows !== 0) {
-                        vitrinePrefs.navigation = {
-                            nextEl: '.swiper-button-next',
-                            prevEl: '.swiper-button-prev'
-                        };
-
-                        vitrinePrefs.lazy = 0;
-
-                        vitrinePrefs.spaceBetween = vitrine.grid.spacebetween;
-
-
-                        if (vitrinePrefs.direction === 'horizontal') {
-                            if (vitrine.passIndicator.color === "white") {
-                                $j('#swiperID').append('<div class="swiper-button-next swiper-button-white"></div>');
-                                $j('#swiperID').append('<div class="swiper-button-prev swiper-button-white"></div>');
-                            } else if (vitrine.passIndicator.color === "black") {
-                                $j('#swiperID').append('<div class="swiper-button-next swiper-button-black"></div>');
-                                $j('#swiperID').append('<div class="swiper-button-prev swiper-button-black"></div>');
-                            } else {
-                                $j('#swiperID').append('<div class="swiper-button-next"></div>');
-                                $j('#swiperID').append('<div class="swiper-button-prev"></div>');
-                            }
-                        }
-
-
-                    } else {
-
-                        $j('#vitrine').append('<div class="swiper-container">' +
-                            '    <div class="swiper-wrapper"></div>' +
-
-                            '    <div class="swiper-button-next"></div>\n' +
-                            '    <div class="swiper-button-prev"></div>\n' +
-                            '    <div class="swiper-pagination"></div>\n' +
-                            '    <div class="swiper-scrollbar"></div>\n' +
-                            '  </div>');
-
-                        vitrinePrefs = {
-                            slidesPerView: 1,
-                            spaceBetween: 0,
-                            centeredSlides: false,
-                            mousewheel: 0,
-                            direction: 'horizontal',
-                            pagination: {
-                                el: '.swiper-pagination',
-                                clickable: true
-                            },
-                            autoplay: false,
-                            scrollbar: {
-                                el: '',
-                                hide: false
-                            },
-                            navigation: {
-                                nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
-                                prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
-                            }
-                        };
-                    }
-
-
-                    $j.ajax({
-                        type: "POST",
-                        url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
-                        headers: {
-                            'Content-Type': 'application/json', 'Authorization-Token': token
-                        },
-                        data: JSON.stringify({
-                            "sku": "OST-PE-AV2200",
-                            "limit": 10,
-                            "listChave": [{
-                                "key": 'description'
-                             }
-                            ],
-                            "listAtributo": [{
-                                "key": vitrine.labels[0].attrName
-                            },
-                                {
-                                    "key": vitrine.labels[1].attrName
-                                },
-                                {
-                                    "key": vitrine.labels[2].attrName
-                                }
-
-                            ]
-                        }),
-                        success: data => {
-                            let resposta = data.resposta;
-                            let slides = [];
-
-                            console.log("DADOS AQUI");
-                            console.log(resposta);
-                             console.log(data);
-
-                            setSwipperSlides(resposta, vitrinePrefs, vitrine);
-                        },
-                        error: error => {
-
-                        }
-                    });
                 }
-            });
-        });
 
 
+            } else {
+
+                $j('#vitrine').append('<div class="swiper-container">' +
+                    '    <div class="swiper-wrapper"></div>' +
+
+                    '    <div class="swiper-button-next"></div>\n' +
+                    '    <div class="swiper-button-prev"></div>\n' +
+                    '    <div class="swiper-pagination"></div>\n' +
+                    '    <div class="swiper-scrollbar"></div>\n' +
+                    '  </div>');
+
+                vitrinePrefs = {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    centeredSlides: false,
+                    mousewheel: 0,
+                    direction: 'horizontal',
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    autoplay: false,
+                    scrollbar: {
+                        el: '',
+                        hide: false
+                    },
+                    navigation: {
+                        nextEl: vitrine.arrows === 1 ? '.swiper-button-next' : '',
+                        prevEl: vitrine.arrows === 1 ? '.swiper-button-prev' : ''
+                    }
+                };
+            }
+
+            return callback(vitrine, vitrinePrefs);
+        }
     });
-}
+  },
 
-
-function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
+  setSwipperSlides: function(resposta, vitrinePrefs, vitrine, callback)
+  {
     let slides = [];
     resposta.forEach(atributo => {
         let arr = atributo.chaves;
 
         console.log("Atributos: ", atributo.chaves);
         console.log("AttrName: ", vitrine.labels);
-        if (arr[vitrine.labels[1].attrName].length > 100) {
-            arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0, 99) + "...";
-        }
-        if (vitrine.grid.typeLayout === 1) {
-            slides.push(
+
+        if (arr[vitrine.labels[1].attrName].length > 100)
+         arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0, 99) + "...";
+
+        if (vitrine.grid.typeLayout === 1)
+        {
+            slides.push
+              (
                 '<div class="swiper-slide textsSlides" style="height: 100%; width: 100%;">\n' +
                 '<div class="swiper-slide-content" style="width: 100%; height: 100%;">\n' +
 
-                '<div class="card-background-image" style="background-image:url(' + arr["image_link"] + ')">\n'
-                +
-                '</div>\n' +
+                '<a href="'+arr["link"]+'" target="_blank">\n' +
+                  '<div data-sku="'+arr["gtin"]+'" class="card-background-image" style="background-image:url(' + arr["image_link"] + ')">\n'
+                  +
+                  '</div>\n' +
+                '</a>\n' +
+
                 '<div id="cardTexts">\n' +
 
                 '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
@@ -309,31 +195,33 @@ function setSwipperSlides(resposta, vitrinePrefs, vitrine) {
 
                 '</div>\n' +
                 '</div>\n' +
-                '</div>');
-        } else {
-
-            slides.push('<div class="swiper-slide textsSlides" style="background-image:url(' + arr["image_link"] + ')">' +
-
+                '</div>'
+              );
+        }
+        else
+        {
+          slides.push
+            (
+              '<a href="'+arr["link"]+'" target="_blank">\n' +
+                '<div data-sku="'+arr["gtin"]+'" class="swiper-slide textsSlides" style="background-image:url(' + arr["image_link"] + ')">' +
                 // '<div data-background="http://lorempixel.com/1600/1200/nature/6/" class="swiper-lazy">\n' +
                 //     '<div class="swiper-lazy-preloader"></div>\n' +
                 '<p class="text0">' + arr[vitrine.labels[0].attrName] + '</p>\n' +
                 '<p class="text1">' + arr[vitrine.labels[1].attrName] + '</p>\n' +
                 '<p class="text2">' + arr[vitrine.labels[2].attrName] + '</p>\n' +
-                // '</div>\n' +
-                '</div>');
+                '</div>\n' +
+              '</a>\n'
+            );
         }
-
-
     });
 
-    configSwipper(slides, vitrinePrefs, vitrine);
-}
+    callback = typeof callback == 'undefined' ? function(){} : callback;
+    this._configSwipper(slides, vitrinePrefs, vitrine, callback);
+  },
 
-function configSwipper(slides, vitrinePrefs, vitrine) {
-    console.log("entra cara")
+ _configSwipper: function(slides, vitrinePrefs, vitrine, callback)
+ {
     vitrinePrefs.slidesPerView = vitrine.grid.narrow > slides.length ? slides.length : vitrine.grid.narrow;
-
-
     let swiper = new Swiper('.swiper-container', vitrinePrefs);
 
     swiper.update();
@@ -364,9 +252,203 @@ function configSwipper(slides, vitrinePrefs, vitrine) {
 
     swiper.update();
 
-    if (vitrinePrefs.autoplay) {
-        swiper.autoplay.stop();
-        swiper.autoplay.start();
+    if (vitrinePrefs.autoplay)
+    {
+      swiper.autoplay.stop();
+      swiper.autoplay.start();
     }
-}
 
+    callback();
+  }
+};
+
+/**
+*Primitive helper to access firebase query's
+*/
+var FireBaseHelper = Class.create();
+FireBaseHelper.prototype =
+{
+ initialize: function(token)
+ {
+    firebase.initializeApp({
+      apiKey: "AIzaSyBeKDfUngI4aYbIIm-yM-mXtA2PLktBDsc",
+      authDomain: "suaview-e4ea1.firebaseapp.com",
+      databaseURL: "https://suaview-e4ea1.firebaseio.com",
+      projectId: "suaview-e4ea1",
+      storageBucket: "suaview-e4ea1.appspot.com",
+      messagingSenderId: "577146762908"
+    });
+
+    this.token = token;
+    this._objStore = firebase.firestore();
+ },
+
+ getLayout: function(fn)
+ {
+    var crenditals = this.token == 'c81e728d9d4c2f636f067f89cc14862c' ? 'shibata@homolog.com' : this.token;
+
+    var query = 
+      this._objStore.collection('SuaView').doc('Layout').collection(crenditals);
+
+    query.get().then((querySnapshot) => {
+      fn(querySnapshot);
+    });
+ }
+};
+
+/**
+*Primitive helper to access analytics plugin
+*/
+var AnalyticsHelper = Class.create();
+AnalyticsHelper.prototype =
+{
+ initialize: function(token)
+ {
+  this.objAnalytics = new AnalyticsController(token);
+
+  //Recover/Create last object order
+  this.objOrder = this._loadLastOrder();
+ },
+
+ _getLastOrder: function()
+ {
+  return this.objAnalytics.utils('save').init('last_order', new OrderModel()).get();
+ },
+
+ _loadLastOrder: function()
+ {
+    var lastOrder = this._getLastOrder();
+
+    //Exists?
+    if((typeof lastOrder.length == 'undefined') == false)
+    {
+      this.objAnalytics.utils('save').init('last_order', new OrderModel()).save();
+      return this._getLastOrder();
+    }
+
+    return lastOrder;
+ },
+
+ _saveOrder: function()
+ {
+  this.objAnalytics.utils('save').init('last_order', this.objOrder).save();
+  console.log('Analytics armazenado no browser com sucesso');
+ },
+
+ addProspectItem: function(sku)
+ {
+    var item = 
+      this.objAnalytics.model('item')
+      .setSku(sku)
+      .setQuantity(1);
+
+    this.objOrder.addProspectItem(item);
+    console.log('Adicionando item prospectado ao analytics: ' + sku);
+
+    this._saveOrder();
+ },
+
+ getOrder: function()
+ {
+  return this.objOrder;
+ }
+};
+
+var Vitrine = Class.create();
+Vitrine.prototype =
+{
+ initialize: function(token, sku)
+ {
+  this.sku = sku;
+  this.analyticsHelper = new AnalyticsHelper(token);
+  this.objFireBaseHelper = new FireBaseHelper(token);
+  this.objLayoutRender = new LayoutRender();
+
+  this._init();
+ },
+
+  _observeProspectItems: function()
+  {
+    var items = $$('div[data-sku]');
+    var me = this;
+
+    items.each(function(item, idx){
+      $$('div[data-sku]')[idx].observe('click', function(){
+        var sku = $$('div[data-sku]')[idx].readAttribute('data-sku');
+        me.analyticsHelper.addProspectItem(sku);
+      });
+    });
+  },
+
+  _getRelatedProducts: function(arrAtributosInfo, callback)
+  {
+    $j.ajax({
+        type: "POST",
+        url: "http://backend.api.com/objrelacionado/produtos-relacionados/get",
+        headers: {
+            'Content-Type': 'application/json', 'Authorization-Token': this.analyticsHelper.objAnalytics.token
+        },
+        data: JSON.stringify({
+            "sku": this.sku,
+            "limit": 10,
+            "listChave": [{
+                "key": 'description'
+             }
+            ],
+            "listAtributo": [{
+                  "key": 'link'
+                },
+                {
+                  "key": 'gtin'
+                },
+                {
+                  "key": 'image_link'
+                },
+                {
+                  "key": arrAtributosInfo[0].attrName
+                },
+                {
+                    "key": arrAtributosInfo[1].attrName
+                },
+                {
+                    "key": arrAtributosInfo[2].attrName
+                }
+            ]
+        }),
+        success: data => {
+            let resposta = data.resposta;
+            let slides = [];
+            callback(data);
+        },
+        error: error => {
+
+        }
+    });
+  },
+
+  _init()
+  {
+    var me = this;
+
+    //FireBase Query -> Render Layout -> API Related Products -> Plugin JS Swiper Render -> Analytics Observable items
+    this.objFireBaseHelper.getLayout(function(fireBaseQueryResponse)
+      {
+        me.objLayoutRender.render(fireBaseQueryResponse, function(layoutRenderQueryResp, layoutRenderVitriPrefsResponse){
+          me._getRelatedProducts(layoutRenderQueryResp.labels, function(relatedProductsResponse)
+          {
+            if(relatedProductsResponse.status != 200)
+              return console.error('vitrine status code invalid');
+
+            me.objLayoutRender.setSwipperSlides(relatedProductsResponse.resposta, layoutRenderVitriPrefsResponse, layoutRenderQueryResp);
+            me._observeProspectItems();
+            
+          });
+        });
+      }
+    );
+  }
+};
+
+function onClickButton(varFunction) {
+  $j('#button').onclick(varFunction);
+}

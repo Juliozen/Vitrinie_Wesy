@@ -1,65 +1,20 @@
 <html lang="pt">
 <head>
-
-
-
     <meta charset="UTF-8">
-    <title>Vitrinie</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
+    <title>Vitrine</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="vitrine.css">
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
-    
-
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js"></script>
-    <script type="text/javascript" src="analytics.min.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+    <script src="http://cdn.api.com/js/dependences.js"></script>
 
     <script>
-        dataLayer = [{
-            'pageCategory': 'signup',
-            'visitorType': 'high-value'
-        }];
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KFDMHRZ');</script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114630871-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-114630871-1');
-    </script>
-
-
-
-
-    <!-- <script src="https://rawgit.com/Juliozen/Vitrinie_Wesy/master/main.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://rawgit.com/Juliozen/Vitrinie_Wesy/master/vitrine.css"> -->
-    <script>
-        var objAnalytics = new AnalyticsController('a87ff679a2f3e71d9181a67b7542122c');
-        var vitrine = new Vitrine("a87ff679a2f3e71d9181a67b7542122c");
+        var vitrine = null;
+        loadBigData(function()
+        {
+          vitrine = new Vitrine("c81e728d9d4c2f636f067f89cc14862c", "BUD-JG-KI0977");
+        });
 
     </script>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFDMHRZ"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <div id="vitrine" style="width: 100%; height: 50%;"></div>
 
