@@ -8,9 +8,7 @@ body {
 .swiper-container {
     height: 100%;
     display: flex;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    width: 100%; 
+    width: inherit;
     text-align: center;
 }
 
@@ -38,21 +36,31 @@ body {
     overflow: hidden;
     border-radius: 6px 6px 0px 0px;
     opacity: 0.91;
-
+    /*padding: 2rem;*/
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .text0 {
-    font-size: 25px;
     line-height: 1.1em;
     margin-bottom: 0.2em;
 }
 
+.text-ajusted {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 auto;
+}
+
 .text1 {
     display: block;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
+    /*-webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;*/
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
@@ -60,8 +68,8 @@ body {
 .text2 {
     text-align: -webkit-center;
     display: block;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
+    /*-webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;*/
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
@@ -72,6 +80,15 @@ body {
     flex-direction: column;
     padding: 1rem;
     line-height: 1.5em;
+}
+
+.cardTexts-adjusted{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 45%;
+    font-weight: 550;
+    display: flex;
 }
 
 .append-buttons {
@@ -88,3 +105,10 @@ body {
     margin: 0 10px;
     font-size: 13px;
 }
+
+
+/* OVERWRITE SWIPER CLASSES */
+.swiper-wrapper{
+    height: 90% !important;
+}
+/* ---- END ---- */
