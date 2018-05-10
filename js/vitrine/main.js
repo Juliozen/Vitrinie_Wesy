@@ -18,8 +18,6 @@ LayoutRender.prototype =
         let vitrine = doc.data();
         let vitrinePrefs = {};
 
-        console.log("Vitrinie do firebase: ", vitrine);
-
         if (vitrine)
         {
             $j('#vitrine').append('<div id="swiperID" class="swiper-container">' +
@@ -67,7 +65,7 @@ LayoutRender.prototype =
 
             vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
 
-            vitrinePrefs.direction = vitrine.indicator.vertical ? 'vertical' : 'horizontal';
+            vitrinePrefs.direction = vitrine.indicator.vertical === 1 ? 'vertical' : 'horizontal';
 
             vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
@@ -167,11 +165,26 @@ LayoutRender.prototype =
   setSwipperSlides: function(resposta, vitrinePrefs, vitrine, callback)
   {
     let slides = [];
+
     resposta.forEach(atributo => {
         let arr = atributo.chaves;
 
         console.log("Atributos: ", atributo.chaves);
         console.log("AttrName: ", vitrine.labels);
+
+        if(typeof arr.sale_price != 'undefined')
+        {
+            if(arr.sale_price != '')
+                arr.price = arr.sale_price;
+
+            delete arr.sale_price;
+        }
+
+        for(var i=0; i < 3; i+= 1)
+        {
+            if(typeof arr[vitrine.labels[i].attrName] == 'undefined')
+                arr[vitrine.labels[i].attrName] = '';
+        }
 
         if (arr[vitrine.labels[1].attrName].length > 100)
          arr[vitrine.labels[1].attrName] = arr[vitrine.labels[1].attrName].substring(0, 99) + "...";
