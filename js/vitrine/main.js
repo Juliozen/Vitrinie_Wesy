@@ -18,6 +18,8 @@ LayoutRender.prototype =
         let vitrine = doc.data();
         let vitrinePrefs = {};
 
+        console.log("Vitrinie do firebase: ", vitrine);
+
         if (vitrine)
         {
             $j('#vitrine').append('<div id="swiperID" class="swiper-container">' +
@@ -65,7 +67,7 @@ LayoutRender.prototype =
 
             vitrinePrefs.mousewheel = vitrine.mouseWeel === 1;
 
-            vitrinePrefs.direction = vitrine.indicator.vertical === 1 ? 'vertical' : 'horizontal';
+            vitrinePrefs.direction = vitrine.indicator.vertical ? 'vertical' : 'horizontal';
 
             vitrinePrefs.effect = vitrine.effects !== null ? vitrine.effects : "";
 
