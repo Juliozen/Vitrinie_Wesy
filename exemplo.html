@@ -3,9 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Vitrine</title>
-   
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://storage.suaview.com.br/0.02/js/dependences.js"></script>
+    <!-- <script src="https://storage.suaview.com.br/0.02/js/dependences.js"></script> -->
+    <script>
+    function loadBigData(fn, index)
+{
+	var version = "0.02";
+	var host = 'https://storage.suaview.com.br/' + version+"/";
+	index = typeof index == 'undefined' ? 0 : index;
+
+	var dependeces = new Array
+	(
+		{type: 'css', src: host+'css/swiper.css'},
+		{type: 'css', src: 'https://fonts.googleapis.com/css?family=Droid+Sans:400,700'},
+    // {type: 'css', src: host+'css/vitrine.css'},
+		{type: 'css', src: 'css/vitrinee.css'},
+
+		{type: 'js', src: host+'js/jquery-3.3.1.min.js'},
+		{type: 'js', src: host+'js/firebase/firebase.js'},
+		{type: 'js', src: host+'js/firebase/firebase-firestore.js'},
+		{type: 'js', src: host+'js/analytics/analytics.min.js'},
+		{type: 'js', src: host+'js/swiper/swiper.min.js'},
+		{type: 'js', src: 'js/vitrine/main.js'}
+	);
+
+	var idx = dependeces.length -1;
+	var elementTag = dependeces[index].type == 'js' ? 'script' : 'link';
+
+	var head = document.getElementsByTagName('head')[0];
+	var script = document.createElement(elementTag);
+
+	if(dependeces[index].type == 'js')
+	{
+		script.type = 'text/javascript';
+		script.src = dependeces[index].src;
+	}
+	else
+	{
+		script.rel = 'stylesheet';
+		script.href = dependeces[index].src;
+	}
+
+	script.onload = function()
+	{
+		if(dependeces.length -1 < (index+1))
+		{
+			return fn();
+		}
+
+	  loadBigData(fn, index+1);
+	};
+
+	head.appendChild(script);
+}
+    </script>
 
     <script>
         var vitrine = null;
@@ -13,7 +65,7 @@
         {
             vitrine = new Vitrine("8f14e45fceea167a5a36dedd4bea2543", "CAD14120US-BR");
             var objAnalytics = Analytics();
-          
+
             /*objAnalytics.getOrder()
                 .setId('0001')
                 .setTotal(211.3)

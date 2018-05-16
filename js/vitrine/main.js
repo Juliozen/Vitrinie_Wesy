@@ -8,7 +8,7 @@ LayoutRender.prototype =
 {
  initialize: function()
  {
-    
+
  },
 
   render: function(query, callback)
@@ -20,7 +20,10 @@ LayoutRender.prototype =
 
         if (vitrine)
         {
-            $j('#vitrine').append('<div id="swiperID" class="swiper-container">' +
+            $j('#vitrine').append(
+                '<div id="content">' +
+                '  <div class="swiper-title">'+vitrine.title_vitrini+'</div>' +
+                '  <div id="swiperID" class="swiper-container">' +
                 '    <div class="swiper-wrapper"></div>' +
                 '  </div>');
 
@@ -48,6 +51,11 @@ LayoutRender.prototype =
                 vitrinePrefs.scrollbar = scrollbar;
                 $j('#swiperID').append('<div class="swiper-scrollbar"></div>');
             }
+
+            //FECHAMENTO DO CONTENT
+            $j('#swiperID').append('</div>');
+            //BACKGROUND CONTENT
+            $j('#content').css({"background-color" : vitrine.background_color_content});
 
             let autoplay = vitrine.autoLoop === 1 ? {
                 delay: 1000,
@@ -242,6 +250,12 @@ LayoutRender.prototype =
     swiper.update();
     swiper.appendSlide(slides);
 
+    //BACKGROUND CARD
+    if(vitrine.background_color_slide.length > 0){
+      $j(".cardTexts-adjusted").css({"background-color" : vitrine.background_color_slide});
+      $j(".card-background-image").css({"background-color" : vitrine.background_color_slide});
+    }
+
     $j(".text0").css({
         "padding-bottom": vitrine.labels[1].hide === 1 ? '10%b ' : '0%',
         //"display": vitrine.labels[0].hide === 1 ? 'none' : 'inline-flex',
@@ -309,7 +323,7 @@ FireBaseHelper.prototype =
  {
     //var crenditals = this.token == 'c81e728d9d4c2f636f067f89cc14862c' ? 'shibata@homolog.com' : this.token;
 
-    var query = 
+    var query =
       this._objStore.collection('SuaView').doc('Layout').collection(this.token);
 
     query.get().then((querySnapshot) => {
@@ -405,7 +419,7 @@ Vitrine.prototype =
 
             me.objLayoutRender.setSwipperSlides(relatedProductsResponse.resposta, layoutRenderVitriPrefsResponse, layoutRenderQueryResp);
             me._observeProspectItems();
-            
+
           });
         });
       }
