@@ -22,7 +22,7 @@ LayoutRender.prototype =
         {
             $j('#vitrine').append(
                 '<div id="content">' +
-                '  <div class="swiper-title">'+vitrine.title_vitrini+'</div>' +
+                '  <div class="swiper-title">'+vitrine.title.value+'</div>' +
                 '  <div id="swiperID" class="swiper-container">' +
                 '    <div class="swiper-wrapper"></div>' +
                 '  </div>');
@@ -54,8 +54,22 @@ LayoutRender.prototype =
 
             //FECHAMENTO DO CONTENT
             $j('#swiperID').append('</div>');
+
+            //TITLE
+            $j(".swiper-title").css({
+              "color": vitrine.title.color,
+              "font-size": vitrine.title.size+"px"
+            });
+
             //BACKGROUND CONTENT
-            $j('#content').css({"background-color" : vitrine.background_color_content});
+            $j('#content').css({
+              // "background_color": vitrine.background_color_content
+              "background-color": vitrine.content.background_color,
+              "border-style": "solid",
+              "border-color": vitrine.content.borderColor,
+              "border-width": vitrine.content.borderWidth,
+              "border-radius": vitrine.content.borderRadius
+            });
 
             let autoplay = vitrine.autoLoop === 1 ? {
                 delay: 1000,
@@ -250,10 +264,25 @@ LayoutRender.prototype =
     swiper.update();
     swiper.appendSlide(slides);
 
+    $j(".swiper-slide").css({
+      "border-style": "solid",
+      "border-color": vitrine.slide_content.borderColor,
+      "border-width": vitrine.slide_content.borderWidth,
+      "border-radius": vitrine.slide_content.borderRadius
+    });
+
     //BACKGROUND CARD
-    if(vitrine.background_color_slide.length > 0){
-      $j(".cardTexts-adjusted").css({"background-color" : vitrine.background_color_slide});
-      $j(".card-background-image").css({"background-color" : vitrine.background_color_slide});
+    if(vitrine.slide_text.background_color.length > 0){
+      $j(".cardTexts-adjusted").css({
+        "background-color" : vitrine.slide_text.background_color,
+        "border-style": "solid",
+        "border-width": vitrine.slide_text.borderWidth+"px",
+        "border-radius": vitrine.slide_text.borderRadius+"px",
+        "border-color": vitrine.slide_text.borderColor
+      });
+      $j(".card-background-image").css({
+        "background-color" : vitrine.slide_text.background_color
+      });
     }
 
     $j(".text0").css({
