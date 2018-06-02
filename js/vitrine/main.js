@@ -15,12 +15,14 @@ LayoutRender.prototype =
   {
     query.forEach((doc) =>
     {
+
+        console.log("VITRINEEE: ", doc);
         let vitrine = doc.data();
         let vitrinePrefs = {};
 
         if (vitrine)
         {
-            $j('#vitrine').append(
+            $j('#' + doc.id).append(
                 '<div id="content">' +
                 '  <div class="swiper-title">'+vitrine.title.value+'</div>' +
                 '  <div id="swiperID" class="swiper-container">' +
@@ -122,10 +124,7 @@ LayoutRender.prototype =
             };
 
             // if (vitrine.arrows !== 1) {
-             
 
-           
-                  console.log("entroaqui");
                 if (vitrinePrefs.direction === 'horizontal' && vitrine.arrows === 1) {
                     vitrinePrefs.navigation = {
                     nextEl: '.swiper-button-next',
