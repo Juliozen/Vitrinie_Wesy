@@ -15,8 +15,6 @@ LayoutRender.prototype =
   {
     query.forEach((doc) =>
     {
-
-        console.log("VITRINEEE: ", doc);
         let vitrine = doc.data();
         let vitrinePrefs = {};
 
@@ -334,7 +332,7 @@ LayoutRender.prototype =
 var FireBaseHelper = Class.create();
 FireBaseHelper.prototype =
 {
- initialize: function(token)
+ initialize: function(vitrini)
  {
     firebase.initializeApp({
       apiKey: "AIzaSyBeKDfUngI4aYbIIm-yM-mXtA2PLktBDsc",
@@ -345,8 +343,16 @@ FireBaseHelper.prototype =
       messagingSenderId: "577146762908"
     });
 
-    this.token = token;
+
     this._objStore = firebase.firestore();
+    this._objStore.collection('SuaView').where("hostName", "==",  window.location.hostname).get().then(value => {
+
+        this.token = value.docs[0].id;
+        vitrini.analyticsHelper = Analytics().setToken(this.token);
+        vitrini.objLayoutRender = new LayoutRender();
+        vitrini._init();
+
+    });
  },
 
  getLayout: function(fn)
@@ -354,7 +360,7 @@ FireBaseHelper.prototype =
     //var crenditals = this.token == 'c81e728d9d4c2f636f067f89cc14862c' ? 'shibata@homolog.com' : this.token;
 
     var query =
-      this._objStore.collection('SuaView').doc('Layout').collection(this.token);
+      this._objStore.collection('SuaView').doc(this.token).collection("Layout");
 
     query.get().then((querySnapshot) => {
       fn(querySnapshot);
@@ -365,14 +371,16 @@ FireBaseHelper.prototype =
 var Vitrine = Class.create();
 Vitrine.prototype =
 {
- initialize: function(token, sku)
+ initialize: function(sku)
  {
   this.sku = sku;
-  this.analyticsHelper = Analytics().setToken(token);
-  this.objFireBaseHelper = new FireBaseHelper(token);
-  this.objLayoutRender = new LayoutRender();
 
-  this._init();
+  this.analyticsHelper = null;
+  this.objLayoutRender = null;
+  this.objFireBaseHelper = new FireBaseHelper(this);
+
+
+
  },
 
   _observeProspectItems: function()
